@@ -1,7 +1,7 @@
 {
   "name": "dag-js",
   "version": "0.0.1",
-  "description": "Vanilla javascript DAG library with support to N:N vertices",
+  "description": "Simple-to-use Javascript DAG library with support to N:N vertices/edges",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
