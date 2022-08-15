@@ -1,0 +1,29 @@
+{
+  "name": "dag-js",
+  "version": "0.0.1",
+  "description": "Vanilla javascript DAG library with support to N:N vertices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js.git"
+  },
+  "keywords": [
+    "dag",
+    "directed",
+    "acyclic",
+    "graph",
+    "build",
+    "graph",
+    "vertices",
+    "edges"
+  ],
+  "author": "Paulo Miguel Almeida",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js/issues"
+  },
+  "homepage": "https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js#readme"
+}

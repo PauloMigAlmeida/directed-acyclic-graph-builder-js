@@ -1,0 +1,146 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.left {
+    float: left;
+    width: 318px;
+    height: 100%;
+    padding-left: 20px;
+}
+
+.right {
+    float: right;
+    background-color: cadetblue;
+    width: calc(100% - 338px);
+    height: 100%;
+    min-height: 100%;
+}
+
+.dragitems {
+    height: 100%;
+    overflow: auto;
+}
+
+#header {
+    font-size: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+    color: #393C44;
+}
+
+#footer {
+    position: absolute;
+    left: 0;
+    padding-left: 20px;
+    line-height: 40px;
+    bottom: 0;
+    width: 338px;
+    border: 1px solid #E8E8EF;
+    height: 67px;
+    box-sizing: border-box;
+    background-color: #FFF;
+    font-family: Roboto;
+    font-size: 14px;
+}
+
+#footer a {
+    text-decoration: none;
+    color: #393C44;
+    transition: all .2s cubic-bezier(.05,.03,.35,1);
+}
+#footer a:hover {
+    opacity: .5;
+}
+#footer span {
+    color: #808292;
+}
+#footer p {
+    display: inline-block;
+    color: #808292;
+}
+#footer img {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.blockelem:first-child {
+    margin-top: 20px
+}
+.blockelem {
+    padding-top: 10px;
+    width: 318px;
+    border: 1px solid transparent;
+    transition-property: box-shadow, height;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.05,.03,.35,1);
+    border-radius: 5px;
+    box-shadow: 0px 0px 30px rgba(22, 33, 74, 0);
+    box-sizing: border-box;
+}
+
+.blockelem:hover {
+    box-shadow: 0 4px 30px rgba(22, 33, 74, 0.08);
+    border-radius: 5px;
+    background-color: #FFF;
+    cursor: pointer;
+}
+
+.grabme, .blockico {
+    display: inline-block;
+}
+.grabme {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: -14px;
+    width: 15px;
+}
+
+.blockin {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 12px;
+}
+.blockico {
+    width: 36px;
+    height: 36px;
+    background-color: #F1F4FC;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+.blockico span {
+    height: 100%;
+    width: 0px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.blockico img {
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+.blocktext {
+    display: inline-block;
+    width: 220px;
+    vertical-align: top;
+    margin-left: 12px
+}
+.blocktitle {
+    margin: 0px!important;
+    padding: 0px!important;
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 16px;
+    color: #393C44;
+}
+.blockdesc {
+    margin-top: 5px;
+    font-family: Roboto;
+    color: #808292;
+    font-size: 14px;
+    line-height: 21px;
+}
