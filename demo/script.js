@@ -6,10 +6,15 @@ let graph = new Graph('#graph');
 // graph.setIdCt(2);
 // graph.updateGraph();
 
-let vertex = new Vertex(
+
+graph.appendVertex(new Vertex(
     new MouseCoordinate(100, 100),
     new ShapeSize(200, 100),
     'Shuffle Data a b c d e f g h i j k l'
-);
+));
 
-graph.appendVertex(vertex);
+graph.appendVertex(new Vertex(
+    new MouseCoordinate(300, 300),
+    new ShapeSize(200, 100),
+    'Shuffle Data a b c d e f g h i j k l'
+));
