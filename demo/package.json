@@ -1,0 +1,14 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Demo using dag-js",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Miguel Almeida",
+  "license": "MIT",
+  "dependencies": {
+    "dag-js": "file://../"
+  }
+}
