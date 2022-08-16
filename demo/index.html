@@ -4,7 +4,7 @@
     <title>Directed-Acyclic-Graph by Paulo Almeida</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="dag.css"/>
+    <link rel="stylesheet" href="node_modules/dag-js/lib/dag.css"/>
 </head>
 <body>
 
@@ -27,12 +27,12 @@
         </div>
         <div class="blockelem" draggable="true">
             <div class="grabme">
-                <img src="assets/grabme.svg">
+                <img src="assets/grabme.svg" alt="">
             </div>
             <div class="blockin">
                 <div class="blockico">
                     <span></span>
-                    <img src="assets/action.svg">
+                    <img src="assets/action.svg" alt="">
                 </div>
                 <div class="blocktext">
                     <p class="blocktitle">Split Dataset</p>
@@ -42,12 +42,12 @@
         </div>
         <div class="blockelem" draggable="true">
             <div class="grabme">
-                <img src="assets/grabme.svg">
+                <img src="assets/grabme.svg" alt="">
             </div>
             <div class="blockin">
                 <div class="blockico">
                     <span></span>
-                    <img src="assets/log.svg">
+                    <img src="assets/log.svg" alt="">
                 </div>
                 <div class="blocktext">
                     <p class="blocktitle">Shuffle Dataset</p>
@@ -57,12 +57,12 @@
         </div>
         <div class="blockelem" draggable="true">
             <div class="grabme">
-                <img src="assets/grabme.svg">
+                <img src="assets/grabme.svg" alt="">
             </div>
             <div class="blockin">
                 <div class="blockico">
                     <span></span>
-                    <img src="assets/log.svg">
+                    <img src="assets/log.svg" alt="">
                 </div>
                 <div class="blocktext">
                     <p class="blocktitle">Normalise Data</p>
@@ -85,9 +85,10 @@
 </div>
 
 
-<script src="//d3js.org/d3.v3.js" charset="utf-8"></script>
-<script src="dag.js"></script>
-<script src="script.js"></script>
+<script src="node_modules/dag-js/node_modules/d3/d3.js" charset="utf-8"></script>
+<!--<script src="node_modules/dag-js/node_modules/d3plus-text/es/index.js" type="module" charset="utf-8"></script>-->
+<script src="node_modules/dag-js/lib/dag.js" charset="utf-8"></script>
+<script src="script.js" charset="utf-8"></script>
 
 </body>
 </html>

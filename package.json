@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js/issues"
   },
-  "homepage": "https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js#readme"
+  "homepage": "https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js#readme",
+  "dependencies": {
+    "d3": "^3.5.12"
+  }
 }
