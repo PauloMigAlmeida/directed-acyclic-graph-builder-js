@@ -31,6 +31,7 @@
 }
 
 .edge_connector.input {
+    --width: 14;
     fill: #61CAC6FF;
     stroke: black;
 }
@@ -42,4 +43,21 @@
 
 .edge_connector:hover {
     filter: invert(0.5);
+}
+
+.edge_connector.selected {
+    fill: #000;
+}
+
+/* Edges */
+.link {
+    fill: none;
+    stroke: #333;
+    stroke-width: 4px;
+    cursor: default;
+}
+
+.link.bad{
+    stroke: red;
+    cursor: not-allowed;
 }
