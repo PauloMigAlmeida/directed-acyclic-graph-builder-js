@@ -1,0 +1,45 @@
+/* Vertex */
+.vertex {
+    fill: white;
+}
+
+.vertex > .title {
+    fill: white;
+    font-weight: bold;
+}
+
+.vertex > .title-box {
+    fill: blue;
+}
+
+.vertex > .label {
+    fill: black;
+    font-weight: bold;
+}
+
+/* Edge connectors*/
+.edge_connector.name {
+    fill: blue;
+}
+
+.edge_connector.separator {
+    fill: black;
+}
+
+.edge_connector.type {
+    fill: green;
+}
+
+.edge_connector.input {
+    fill: #61CAC6FF;
+    stroke: black;
+}
+
+.edge_connector.output {
+    fill: #66a6d0;
+    stroke: black;
+}
+
+.edge_connector:hover {
+    filter: invert(0.5);
+}
