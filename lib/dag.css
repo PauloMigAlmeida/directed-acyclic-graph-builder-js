@@ -53,11 +53,16 @@
 .link {
     fill: none;
     stroke: #333;
-    stroke-width: 4px;
+    stroke-width: 3px;
     cursor: default;
 }
 
 .link.bad{
     stroke: red;
-    cursor: not-allowed;
+    cursor: no-drop;
+}
+
+.link.good{
+    stroke: green;
+    cursor: auto;
 }
