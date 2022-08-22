@@ -42,3 +42,17 @@ graph.appendVertex(new Vertex(
 ));
 
 graph.update();
+
+graph.appendVertex(new Vertex(
+    new MouseCoordinate(550, 100),
+    new ShapeSize(200, 150),
+    'Random data',
+    [
+        new InputVertexConnector(0, 'data', "List[float]"),
+    ],
+    [
+        new OutputVertexConnector(0, 'data', 'List[float]'),
+    ],
+));
+
+graph.update();

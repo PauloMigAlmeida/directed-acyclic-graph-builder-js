@@ -46,7 +46,7 @@
 }
 
 .edge_connector.selected {
-    fill: #000;
+    fill: rgb(163, 158, 158);
 }
 
 /* Edges */
