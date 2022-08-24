@@ -9,73 +9,74 @@ import {
     OutputVertexConnector
 } from "./node_modules/dag-js/lib/dag.js";
 
-//TODO: Implement Drag&Drop events
-
-let graph = new Graph('#graph');
-
-graph.appendVertex(new Vertex(
-    new MouseCoordinate(100, 100),
-    new ShapeSize(200, 100),
-    'Shuffle Data',
-    [
-        new InputVertexConnector(0, 'data_in', "List[List[List[float]]]"),
-        new InputVertexConnector(1, 'seed_asda_asdas', 'int'),
-    ],
-    [
-        new OutputVertexConnector(0, 'data', 'List[float]'),
-    ],
-));
-
-graph.update();
-
-graph.appendVertex(new Vertex(
-    new MouseCoordinate(300, 300),
-    new ShapeSize(200, 150),
-    'Shuffle Data a b c d e f g h i j k l',
-    [
-        new InputVertexConnector(0, 'data', "List[float]"),
-        new InputVertexConnector(1, 'seed', 'int'),
-    ],
-    [
-        new OutputVertexConnector(0, 'data', 'List[float]'),
-    ],
-));
-
-graph.update();
-
-graph.appendVertex(new Vertex(
-    new MouseCoordinate(550, 100),
-    new ShapeSize(200, 150),
-    'Random data',
-    [
-        new InputVertexConnector(0, 'data', "List[float]"),
-    ],
-    [
-        new OutputVertexConnector(0, 'data', 'List[float]'),
-    ],
-));
-
-graph.update();
-
 const catalog = [
     {
-        title: 'oi',
+        title: 'Dataset Reader',
         inputs: [
-            {order: 0, name: 'name', type: 'str'}
+            {order: 0, name: 'path', type: 'str'},
         ],
         outputs: [
-            {order: 0, name: 'name', type: 'str'}
+            {order: 0, name: 'dataset', type: 'List[List[float]]'},
         ],
-    }
+    },
+    {
+        title: 'Split Dataset',
+        inputs: [
+            {order: 0, name: 'dataset', type: 'List[List[float]]'},
+        ],
+        outputs: [
+            {order: 0, name: 'train_dataset', type: 'List[List[float]]'},
+            {order: 1, name: 'test_dataset', type: 'List[List[float]]'},
+        ],
+    },
+    {
+        title: 'Shuffle Dataset',
+        inputs: [
+            {order: 0, name: 'dataset', type: 'List[List[float]]'},
+        ],
+        outputs: [
+            {order: 0, name: 'shuffled_dataset', type: 'List[List[float]]'},
+        ],
+    },
+    {
+        title: 'Normalise Dataset',
+        inputs: [
+            {order: 0, name: 'dataset', type: 'List[List[float]]'},
+        ],
+        outputs: [
+            {order: 0, name: 'norm_dataset', type: 'List[List[float]]'},
+        ],
+    },
+    {
+        title: 'ResNet CNN Model',
+        inputs: [
+            {order: 0, name: 'layers', type: 'List[Layers]'},
+        ],
+        outputs: [
+            {order: 0, name: 'model', type: 'Model'},
+        ],
+    },
+    {
+        title: 'Train',
+        inputs: [
+            {order: 0, name: 'model', type: 'Model'},
+            {order: 1, name: 'train_dataset', type: 'List[List[float]]'},
+            {order: 2, name: 'test_dataset', type: 'List[List[float]]'},
+        ],
+        outputs: [
+            {order: 0, name: 'results', type: 'List[List[float]]'},
+        ],
+    },
 ];
 
+let graph = new Graph('#graph');
 
 /* Drag and Drop events */
 const graphEl = document.getElementById('graph');
 
 document.addEventListener('dragstart', (event) => {    
-    console.log('graphEl.addEventListener', event);
-    event.dataTransfer.setData("text/plain", 0);
+    const catalogId = event.target.getAttribute('catalog-id');   
+    event.dataTransfer.setData("text/plain", catalogId);
 });
 
 document.addEventListener('dragover', (event) => {
@@ -86,9 +87,20 @@ document.addEventListener('dragover', (event) => {
 graphEl.addEventListener('drop', (event) => {
     event.preventDefault();
 
-    // Get the id of the target and add the moved element to the target's DOM
     const data = event.dataTransfer.getData("text/plain");
     const item = catalog[parseInt(data)];
-    console.log(data, parseInt(data), item);
-    // event.target.appendChild(document.getElementById(data));
+    
+    let pointer = d3.pointer(event, graph.svgMainG.node());
+    let shape = new ShapeSize(200, 150);
+
+    graph.appendVertex(new Vertex(
+        new MouseCoordinate(pointer[0] - shape.width / 2, pointer[1]),
+        new ShapeSize(200, 150),
+        item.title,
+        item.inputs.map((i) => new InputVertexConnector(i.order, i.name, i.type)),
+        item.outputs.map((i) => new OutputVertexConnector(i.order, i.name, i.type)),
+    ));
+    
+    graph.update();
+    
 });
