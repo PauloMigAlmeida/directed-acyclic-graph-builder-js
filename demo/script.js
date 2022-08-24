@@ -56,3 +56,39 @@ graph.appendVertex(new Vertex(
 ));
 
 graph.update();
+
+const catalog = [
+    {
+        title: 'oi',
+        inputs: [
+            {order: 0, name: 'name', type: 'str'}
+        ],
+        outputs: [
+            {order: 0, name: 'name', type: 'str'}
+        ],
+    }
+];
+
+
+/* Drag and Drop events */
+const graphEl = document.getElementById('graph');
+
+document.addEventListener('dragstart', (event) => {    
+    console.log('graphEl.addEventListener', event);
+    event.dataTransfer.setData("text/plain", 0);
+});
+
+document.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+});
+
+graphEl.addEventListener('drop', (event) => {
+    event.preventDefault();
+
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = event.dataTransfer.getData("text/plain");
+    const item = catalog[parseInt(data)];
+    console.log(data, parseInt(data), item);
+    // event.target.appendChild(document.getElementById(data));
+});

@@ -12,6 +12,10 @@
     fill: blue;
 }
 
+.vertex > .title-box:hover, .vertex > .title:hover {
+    cursor: move;
+}
+
 .vertex > .label {
     fill: black;
     font-weight: bold;
