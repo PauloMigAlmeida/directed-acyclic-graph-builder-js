@@ -21,6 +21,10 @@
     font-weight: bold;
 }
 
+.vertex.selected > rect.outerbox {
+    fill: aliceblue;
+}
+
 /* Edge connectors*/
 .edge_connector.name {
     fill: blue;
@@ -47,6 +51,7 @@
 
 .edge_connector:hover {
     filter: invert(0.5);
+    cursor: pointer;
 }
 
 .edge_connector.selected {
@@ -55,10 +60,13 @@
 
 /* Edges */
 .link {
-    fill: none;
     stroke: #333;
     stroke-width: 3px;
-    cursor: default;
+    cursor: pointer;
+}
+
+.edge.selected > .link {
+    stroke: #66a6d0
 }
 
 .link.bad{
