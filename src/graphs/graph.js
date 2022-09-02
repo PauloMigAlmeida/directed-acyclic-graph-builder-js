@@ -6,6 +6,7 @@ import { VertexContainer } from "../datastructures/vertex-container.js";
 import { EdgeConnector } from "../vertices/connector.js";
 import { Edge } from "../edges/edge.js";
 import { EdgeContainer } from "../datastructures/edge-container.js";
+import * as d3 from "d3";
 
 export class Graph {
     static MAIN_G_CLASS = 'graph';
@@ -138,6 +139,10 @@ export class Graph {
             value.remove();
             value.draw(that);
         });
+    }
+
+    translateCoordinates(event) {
+        return d3.pointer(event, this.svgMainG.node());
     }
 
     /* callbacks for events */

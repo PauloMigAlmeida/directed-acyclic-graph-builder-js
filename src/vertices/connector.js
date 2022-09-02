@@ -3,6 +3,7 @@
 import { TextOverflow } from "../misc/text-overflow.js";
 import { ACTION_TYPE } from "../events/event.js";
 import { UniqueComponent } from "./unique-component.js";
+import * as d3 from "d3";
 
 export const ConnectorType = {
     INPUT: 1,

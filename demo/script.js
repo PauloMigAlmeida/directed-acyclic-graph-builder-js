@@ -6,8 +6,8 @@ import {
     MouseCoordinate,
     ShapeSize,
     InputVertexConnector,
-    OutputVertexConnector
-} from "./node_modules/dag-js/lib/dag.js";
+    OutputVertexConnector,
+} from "./dag.js";
 
 const catalog = [
     {
@@ -71,6 +71,21 @@ const catalog = [
 
 let graph = new Graph('#graph');
 
+graph.appendVertex(new Vertex(
+    new MouseCoordinate(100, 100),
+    new ShapeSize(200, 100),
+    'Shuffle Data',
+    [
+        new InputVertexConnector(0, 'data_in', "List[List[List[float]]]"),
+        new InputVertexConnector(1, 'seed_asda_asdas', 'int'),
+    ],
+    [
+        new OutputVertexConnector(0, 'data', 'List[float]'),
+    ],
+));
+
+graph.update();
+
 /* Drag and Drop events */
 const graphEl = document.getElementById('graph');
 
@@ -90,7 +105,7 @@ graphEl.addEventListener('drop', (event) => {
     const data = event.dataTransfer.getData("text/plain");
     const item = catalog[parseInt(data)];
     
-    let pointer = d3.pointer(event, graph.svgMainG.node());
+    let pointer = graph.translateCoordinates(event);
     let shape = new ShapeSize(200, 150);
 
     graph.appendVertex(new Vertex(

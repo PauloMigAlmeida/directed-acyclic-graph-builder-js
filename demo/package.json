@@ -8,9 +8,6 @@
   },
   "author": "Paulo Miguel Almeida",
   "license": "MIT",
-  "dependencies": {
-    "dag-js": "file://../"
-  },
   "devDependencies": {
     "http-server": "^14.1.1"
   }
