@@ -2,6 +2,10 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
+    optimization: {
+        usedExports: true,
+    },
+
     entry: './src/dag.js',
 
     experiments: {
