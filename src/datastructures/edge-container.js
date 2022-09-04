@@ -1,3 +1,5 @@
+'use strict';
+
 import { Vertex } from "../dag.js";
 import { Edge } from "../edges/edge.js";
 import { ConnectorType, EdgeConnector } from "../vertices/connector.js";

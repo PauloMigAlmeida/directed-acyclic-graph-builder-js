@@ -1,3 +1,5 @@
+'use strict';
+
 import { VertexConnectorHolder } from "../datastructures/vertex-container.js";
 import { EdgeLine, EdgeLineState } from "../edges/line.js";
 import { Edge } from "../edges/edge.js";

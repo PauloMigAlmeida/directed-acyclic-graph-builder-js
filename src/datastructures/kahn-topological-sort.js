@@ -1,3 +1,5 @@
+'use strict';
+
 export class ConnectionDegree {
 
     constructor(inputEdges, outputEdges){

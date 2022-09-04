@@ -1,3 +1,5 @@
+'use strict';
+
 import {BaseActionListener} from "../events/base-action-listener.js";
 
 /**

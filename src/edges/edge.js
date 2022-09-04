@@ -1,3 +1,5 @@
+'use strict';
+
 import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event.js";
 import { EdgeLine } from "./line.js";
 

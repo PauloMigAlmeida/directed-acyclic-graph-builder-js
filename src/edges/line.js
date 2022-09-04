@@ -1,4 +1,4 @@
-import { Graph } from "../dag.js";
+'use strict';
 
 export const EdgeLineState = {
     DEFAULT:    1,

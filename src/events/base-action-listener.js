@@ -1,3 +1,5 @@
+'use strict';
+
 import {ACTION_TYPE, isFunction} from "./event.js";
 
 export class GenericActionHolder {
