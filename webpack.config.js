@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
+    devtool: 'source-map',
     optimization: {
         usedExports: true,
     },
@@ -25,7 +26,7 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader']
-            }
+            },
         ],
     },
 
