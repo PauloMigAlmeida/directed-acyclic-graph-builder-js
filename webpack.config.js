@@ -18,7 +18,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         library: {
             type: 'module',
-        }
+        },
+        clean: true,
     },
 
     module: {

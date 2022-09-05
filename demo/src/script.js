@@ -8,8 +8,11 @@ import {
     InputVertexConnector,
     OutputVertexConnector,
     GraphSerializable,
-} from "./dag.js";
+} from 'dag-builder-js';
+import { saveAs } from 'file-saver';
+import './style.css';
 
+/* Catalog of actions */
 const catalog = [
     {
         title: 'Dataset Reader',
@@ -70,6 +73,7 @@ const catalog = [
     },
 ];
 
+/* Dag-build-js initialisation */
 let graph = new Graph('#graph');
 
 graph.appendVertex(new Vertex(
@@ -147,7 +151,7 @@ document.getElementById('hidden-file-upload').addEventListener('change', (event)
 document.getElementById('download-input').addEventListener('click', () => {
     const output = graph.export();
     const blob = new Blob([JSON.stringify(output)], { type: "text/plain;charset=utf-8" });
-    window.saveAs(blob, "dag.json");
+    saveAs(blob, "dag.json");
 });
 
 document.getElementById('delete-graph').addEventListener('click', () => {

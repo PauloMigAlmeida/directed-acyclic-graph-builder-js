@@ -7,6 +7,20 @@ dag-builder-js is a simple-to-use Javascript DAG library with support to N:N ver
 ## Demo
 TODO: Record clip of dag-js
 
+Running the demo in your computer can be achieved by running:
+
+```bash
+# build dag-builder-js
+cd <root-dir>
+npm install
+npm run build
+
+# build & start demo
+cd ./demo
+npm install
+npm run start
+```
+
 ## Installation
 
 Adding dag-builder-js is pretty simple:
@@ -45,16 +59,22 @@ import {
 let graph = new Graph('#graph');
 
 graph.appendVertex(new Vertex(
+    // location
     new MouseCoordinate(100, 100),
+    // size
     new ShapeSize(200, 100),
+    // title
     'Vertex Title',
+    // inputs
     [
         new InputVertexConnector(0, 'data_in', "type1"),
         new InputVertexConnector(1, 'other_in', 'type2'),
     ],
+    // outputs
     [new OutputVertexConnector(0, 'data_out', 'type3')],
 ));
 
+// render changes
 graph.update();
 
 ```
@@ -71,8 +91,8 @@ TBD
  - [x] Move Vertices
  - [x] Import/Export Graph State
  - [x] Real-time acyclic validation (prevent users from creating cycles)
- - [x] 1:1 Input Edges / 1:N Output Edges
- - [x] Npm install
+ - [x] N:N Edges Connections
+ - [x] Npm package
  
 
 ## Credits/Inspiration/Pieces of code I got from other projects
@@ -81,7 +101,7 @@ TBD
 
 **Repository:** [alyssaxuu/flowy](https://github.com/alyssaxuu/flowy)
 
-I got the demo page HTML/CSS and some ideas for documentation and callback listeners. It's a very interesting project and the fact that Alyssa did it in vanilla javascript is commendable. Kudos to her.
+I got the demo page HTML/CSS and some ideas for documentation and callback listeners. It's a very interesting project and the fact that Alyssa did it all in vanilla javascript is commendable. Kudos to her.
 
 ### Directed-Graph-Creator
 
