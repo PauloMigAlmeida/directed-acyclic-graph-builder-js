@@ -35,14 +35,23 @@ export class VertexContainer {
         return this.vertices.filter((i) => i.isSelected());
     }
 
-    removeSelected() {
+    remove(criteria) {
         // remove from svg
         this.vertices
-            .filter((i) => i.isSelected())
+            .filter((i) => criteria(i))
             .forEach((i) => i.remove());
-        
+
         // remove from list
-        this.vertices = this.vertices.filter((i) => !i.isSelected());
+        this.vertices = this.vertices.filter((i) => !criteria(i));
+    }
+
+    removeSelected() {
+        const criteria = (i) => i.isSelected();
+        this.remove(criteria);
+    }
+
+    removeAll() {
+        this.remove(() => true);
     }
 
 }

@@ -113,7 +113,7 @@ export class Graph {
                 this.vertices
                     .findAllSelected()
                     .forEach((i) => this.edges.removeEdgesByVertex(i));
-                    
+
                 // delete selected elements
                 this.vertices.removeSelected();
                 this.edges.removeSelected();
@@ -143,6 +143,23 @@ export class Graph {
 
     translateCoordinates(event) {
         return d3.pointer(event, this.svgMainG.node());
+    }
+
+    export() {
+        this.vertices.iterate((value) => {
+            console.log(JSON.stringify(value));
+        });
+    }
+
+    import() {
+        this.vertices.iterate((value) => {
+            console.log(JSON.stringify(value));
+        });
+    }
+
+    clear() {
+        this.edges.removeAll();
+        this.vertices.removeAll();
     }
 
     /* callbacks for events */

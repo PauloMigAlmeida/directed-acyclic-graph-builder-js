@@ -147,3 +147,33 @@ html, body {
     font-size: 14px;
     line-height: 21px;
 }
+
+/* Toolbox */
+#toolbox{
+    position: absolute;
+    bottom: 0;
+    left: 348px;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+    border: 2px solid #a8a1a1;
+    border-radius: 5px;
+    padding: 6px;
+    background-color: #d5d5d5;
+}
+
+#toolbox input{
+    width: 30px;
+    opacity: 0.4;
+}
+#toolbox input:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+#hidden-file-upload{
+    display: none;
+}
+
+#download-input{
+    margin: 0 0.5em;
+}

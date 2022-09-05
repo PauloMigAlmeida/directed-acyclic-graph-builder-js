@@ -104,18 +104,27 @@ export class EdgeContainer {
         this.edges
             .filter((i) => selectionCriteria(i))
             .forEach((i) => i.remove());
-        
+
         // remove from list
         this.edges = this.edges.filter((i) => !selectionCriteria(i));
     }
 
-    removeSelected() {
+    remove(criteria) {
         // remove from svg
         this.edges
-            .filter((i) => i.isSelected())
+            .filter((i) => criteria(i))
             .forEach((i) => i.remove());
-        
+
         // remove from list
-        this.edges = this.edges.filter((i) => !i.isSelected());
+        this.edges = this.edges.filter((i) => !criteria(i));
+    }
+
+    removeSelected() {
+        const criteria = (i) => i.isSelected();
+        this.remove(criteria);
+    }
+
+    removeAll() {
+        this.remove(() => true);
     }
 }
