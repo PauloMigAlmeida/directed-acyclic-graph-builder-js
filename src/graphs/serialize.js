@@ -2,8 +2,7 @@
 
 export class GraphSerializable {
 
-    constructor(transform, vertices, edges){
-        this.transform = transform;
+    constructor(vertices, edges){
         this.vertices = vertices;
         this.edges = edges;
     }

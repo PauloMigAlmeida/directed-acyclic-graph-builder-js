@@ -8,6 +8,8 @@ import { Edge } from "../edges/edge.js";
 import { EdgeContainer } from "../datastructures/edge-container.js";
 import * as d3 from "d3";
 import { GraphSerializable } from "./serialize.js";
+import { VertexSerializable } from "../vertices/serialize.js";
+import { EdgeSerializable } from "../dag.js";
 
 export class Graph {
     static MAIN_G_CLASS = 'graph';
@@ -131,6 +133,13 @@ export class Graph {
         this.vertices.append(vertex);
     }
 
+    appendEdge(edge){
+        //TODO add validations in case this comes from import method...
+        if (this.edges.append(edge)) {
+            this.update();
+        }
+    }
+
     update() {
         let that = this;
         this.vertices.iterate(function (value) {
@@ -158,14 +167,29 @@ export class Graph {
         });
 
         return new GraphSerializable(
-            this.svgMainG.attr('transform') || '',
             vertices,
             edges,
         );
     }
 
-    import() {
-        console.log('import');
+    import(graphSerializable) {
+        this.clear();
+
+        graphSerializable.vertices.forEach((value) => {
+            const vertexSer = Object.assign(new VertexSerializable, value);
+            const vertex = vertexSer.deserialize();
+            this.appendVertex(vertex);
+        });
+
+        graphSerializable.edges.forEach((value) => {
+            const edgeSer = Object.assign(new EdgeSerializable, value);
+            this.appendEdge(new Edge(
+                this.vertices.findVertexConnectorByUUID(edgeSer.from_connector),
+                this.vertices.findVertexConnectorByUUID(edgeSer.to_connector),
+            ));
+        });
+
+        this.update();
     }
 
     clear() {
@@ -204,10 +228,8 @@ export class Graph {
             that.edgeDrawListener.dragEndEventHandler(event);
     }
 
-    edgeConnectorIsAdded(vertexHolderA, vertexHolderB) {
-        if (this.edges.append(new Edge(vertexHolderA, vertexHolderB))) {
-            this.update();
-        }
+    edgeConnectorIsAdded(vertexHolderA, vertexHolderB) {        
+        this.appendEdge(new Edge(vertexHolderA, vertexHolderB));
     }
 
     vertexDragHandler(type, that) {

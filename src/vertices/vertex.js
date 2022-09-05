@@ -6,6 +6,7 @@ import { UniqueComponent } from "./unique-component.js";
 import { ConnectorType } from "./connector.js";
 import { VertexSerializable } from "./serialize.js";
 import * as d3 from "d3";
+import { MouseCoordinate } from "../dag.js";
 
 export class Vertex extends UniqueComponent {
 
@@ -210,11 +211,11 @@ export class Vertex extends UniqueComponent {
         }
     }
 
-    serialize() {
+    serialize() {       
+        const mat = translationMat(this.drawingContext.node());
         return new VertexSerializable(
             this._uuid,
-            this.drawingContext.attr('transform'),
-            this.coordinate,
+            new MouseCoordinate(mat.e, mat.f),
             this.size,
             this.title,
             this.inputs.map((i) => i.serialize()),

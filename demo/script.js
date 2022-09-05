@@ -7,6 +7,7 @@ import {
     ShapeSize,
     InputVertexConnector,
     OutputVertexConnector,
+    GraphSerializable,
 } from "./dag.js";
 
 const catalog = [
@@ -122,13 +123,31 @@ graphEl.addEventListener('drop', (event) => {
 
 /* Toolbox actions */
 document.getElementById('upload-input').addEventListener('click', () => {
-    graph.import();
+    document.getElementById('hidden-file-upload').click();
+});
+
+document.getElementById('hidden-file-upload').addEventListener('change', (event) => {
+    const inputFile = document.getElementById('hidden-file-upload');
+    const [file] = inputFile.files;
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+        const txtRes = reader.result;
+        const jsonObj = JSON.parse(txtRes);
+        const graphSerializable = Object.assign(new GraphSerializable, jsonObj);
+        graph.import(graphSerializable);
+    }, false);
+
+    if (file) {
+        reader.readAsText(file);
+        inputFile.value = '';
+    }
 });
 
 document.getElementById('download-input').addEventListener('click', () => {
-    const output = graph.export();   
-    const blob = new Blob([JSON.stringify(output)], {type: "text/plain;charset=utf-8"});
-    window.saveAs(blob, "dag.json");    
+    const output = graph.export();
+    const blob = new Blob([JSON.stringify(output)], { type: "text/plain;charset=utf-8" });
+    window.saveAs(blob, "dag.json");
 });
 
 document.getElementById('delete-graph').addEventListener('click', () => {
