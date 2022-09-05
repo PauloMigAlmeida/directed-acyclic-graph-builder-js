@@ -1,4 +1,90 @@
-Directed-Acyclic-Graph-Builder-js (drag-build-js)
+Directed-Acyclic-Graph-Builder-js (dag-builder-js)
 ===
 
-This is work-in-progress for now. Star/Watch this repo if the subject interests you. 
+## What is this?
+dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.
+
+## Demo
+TODO: Record clip of dag-js
+
+## Installation
+
+Adding dag-builder-js is pretty simple:
+
+```html
+<script src='https://cdn.jsdelivr.net/npm/dag-builder-js' type="module" charset="utf-8"></script>
+```
+
+Or 
+
+```bash
+npm i dag-builder-js --save
+```
+
+## Usage
+
+Define a container in which the DAG will be rendered
+
+```html
+<div id="graph"></div>
+```
+
+Initialise DAG builder
+
+```javascript
+import {
+    Graph,
+    Vertex,
+    MouseCoordinate,
+    ShapeSize,
+    InputVertexConnector,
+    OutputVertexConnector,
+    GraphSerializable,
+} from "dag-builder-js";
+
+let graph = new Graph('#graph');
+
+graph.appendVertex(new Vertex(
+    new MouseCoordinate(100, 100),
+    new ShapeSize(200, 100),
+    'Vertex Title',
+    [
+        new InputVertexConnector(0, 'data_in', "type1"),
+        new InputVertexConnector(1, 'other_in', 'type2'),
+    ],
+    [new OutputVertexConnector(0, 'data_out', 'type3')],
+));
+
+graph.update();
+
+```
+
+## Callbacks
+
+TBD
+
+## Features
+
+ - [x] Zooming/Pan Gestures
+ - [x] Select Vertices/Edges
+ - [x] Delete Vertices/Edges
+ - [x] Move Vertices
+ - [x] Import/Export Graph State
+ - [x] Real-time acyclic validation (prevent users from creating cycles)
+ - [x] 1:1 Input Edges / 1:N Output Edges
+ - [x] Npm install
+ 
+
+## Credits/Inspiration/Pieces of code I got from other projects
+
+### Flowy
+
+**Repository:** [alyssaxuu/flowy](https://github.com/alyssaxuu/flowy)
+
+I got the demo page HTML/CSS and some ideas for documentation and callback listeners. It's a very interesting project and the fact that Alyssa did it in vanilla javascript is commendable. Kudos to her.
+
+### Directed-Graph-Creator
+
+**Repository:** [cjrd/directed-graph-creator](https://github.com/cjrd/directed-graph-creator)
+
+I got a lot of inspiration from the implemenation that @cjrd has written so he also deserves to be listed here. I got the import/export idea from his implementation and learned that I could use d3 for SVG manipulation (which I didn't know at the time).
