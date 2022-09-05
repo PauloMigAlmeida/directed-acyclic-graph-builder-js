@@ -4,9 +4,9 @@ import { TextOverflow } from "../misc/text-overflow.js";
 import { ACTION_TYPE, translationMat } from "../events/event.js";
 import { UniqueComponent } from "./unique-component.js";
 import { ConnectorType } from "./connector.js";
-import { VertexSerializable } from "./serialize.js";
+import { VertexSerializable } from "../serialization/serialize.js"; 
+import { MouseCoordinate } from "../misc/pojo.js"; 
 import * as d3 from "d3";
-import { MouseCoordinate } from "../dag.js";
 
 export class Vertex extends UniqueComponent {
 

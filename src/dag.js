@@ -7,9 +7,12 @@ export { MouseCoordinate, ShapeSize } from "./misc/pojo.js";
 export { InputVertexConnector, OutputVertexConnector } from "./vertices/connector.js";
 
 /* import/export */
-export { VertexSerializable, VertexConnectorSerializable } from "./vertices/serialize.js";
-export { EdgeSerializable } from "./edges/serialize.js";
-export { GraphSerializable } from "./graphs/serialize.js";
+export {
+    GraphSerializable,
+    VertexSerializable,
+    VertexConnectorSerializable,
+    EdgeSerializable
+} from "./serialization/serialize.js";
 
 /* styles */
 import "./dag.css"

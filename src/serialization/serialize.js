@@ -1,8 +1,17 @@
 'use strict';
 
 import { MouseCoordinate, ShapeSize } from "../misc/pojo.js";
-import { ConnectorType, InputVertexConnector, OutputVertexConnector } from "./connector.js";
-import { Vertex } from "./vertex.js";
+import { ConnectorType, InputVertexConnector, OutputVertexConnector } from "../vertices/connector.js";
+import { Vertex } from "../vertices/vertex.js";
+
+export class GraphSerializable {
+
+    constructor(vertices, edges){
+        this.vertices = vertices;
+        this.edges = edges;
+    }
+    
+}
 
 export class VertexSerializable {
 
@@ -51,4 +60,13 @@ export class VertexConnectorSerializable {
         connector.uuid = this.uuid;
         return connector;
     }
+}
+
+export class EdgeSerializable {
+
+    constructor(from_connector, to_connector) {
+        this.from_connector = from_connector;
+        this.to_connector = to_connector;
+    }
+
 }

@@ -3,8 +3,8 @@
 import { TextOverflow } from "../misc/text-overflow.js";
 import { ACTION_TYPE } from "../events/event.js";
 import { UniqueComponent } from "./unique-component.js";
+import { VertexConnectorSerializable } from "../serialization/serialize.js";
 import * as d3 from "d3";
-import { VertexConnectorSerializable } from "./serialize.js";
 
 export const ConnectorType = {
     INPUT: 1,

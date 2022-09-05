@@ -6,10 +6,9 @@ import { VertexContainer } from "../datastructures/vertex-container.js";
 import { EdgeConnector } from "../vertices/connector.js";
 import { Edge } from "../edges/edge.js";
 import { EdgeContainer } from "../datastructures/edge-container.js";
+import { GraphSerializable, VertexSerializable, EdgeSerializable } from "../serialization/serialize.js";
 import * as d3 from "d3";
-import { GraphSerializable } from "./serialize.js";
-import { VertexSerializable } from "../vertices/serialize.js";
-import { EdgeSerializable } from "../dag.js";
+
 
 export class Graph {
     static MAIN_G_CLASS = 'graph';
