@@ -110,7 +110,7 @@ graphEl.addEventListener('drop', (event) => {
 
     graph.appendVertex(new Vertex(
         new MouseCoordinate(pointer[0] - shape.width / 2, pointer[1]),
-        new ShapeSize(200, 150),
+        shape,
         item.title,
         item.inputs.map((i) => new InputVertexConnector(i.order, i.name, i.type)),
         item.outputs.map((i) => new OutputVertexConnector(i.order, i.name, i.type)),
@@ -122,11 +122,13 @@ graphEl.addEventListener('drop', (event) => {
 
 /* Toolbox actions */
 document.getElementById('upload-input').addEventListener('click', () => {
-
+    graph.import();
 });
 
 document.getElementById('download-input').addEventListener('click', () => {
-
+    const output = graph.export();   
+    const blob = new Blob([JSON.stringify(output)], {type: "text/plain;charset=utf-8"});
+    window.saveAs(blob, "dag.json");    
 });
 
 document.getElementById('delete-graph').addEventListener('click', () => {
