@@ -2,7 +2,7 @@
 
 import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event.js";
 import { EdgeLine } from "./line.js";
-import { EdgeSerializable } from "./serialize.js";
+import { EdgeSerializable } from "../serialization/serialize.js";
 
 export class Edge {
     
