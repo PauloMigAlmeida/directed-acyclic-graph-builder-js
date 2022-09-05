@@ -4,6 +4,7 @@ import { TextOverflow } from "../misc/text-overflow.js";
 import { ACTION_TYPE, translationMat } from "../events/event.js";
 import { UniqueComponent } from "./unique-component.js";
 import { ConnectorType } from "./connector.js";
+import { VertexSerializable } from "./serialize.js";
 import * as d3 from "d3";
 
 export class Vertex extends UniqueComponent {
@@ -190,12 +191,12 @@ export class Vertex extends UniqueComponent {
 
     setupClickEvents() {
         this.drawingContext.on('click', (event) => {
-            event.stopPropagation();            
+            event.stopPropagation();
             this.setSelected(!this.isSelected());
         });
     }
 
-    setSelected(value){
+    setSelected(value) {
         this.drawingContext.classed(Vertex.SELECTED_CLASS, value);
     }
 
@@ -207,5 +208,17 @@ export class Vertex extends UniqueComponent {
         if (this.drawingContext) {
             this.drawingContext.remove();
         }
+    }
+
+    serialize() {
+        return new VertexSerializable(
+            this._uuid,
+            this.drawingContext.attr('transform'),
+            this.coordinate,
+            this.size,
+            this.title,
+            this.inputs.map((i) => i.serialize()),
+            this.outputs.map((i) => i.serialize()),
+        );
     }
 }

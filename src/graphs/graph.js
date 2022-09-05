@@ -7,6 +7,7 @@ import { EdgeConnector } from "../vertices/connector.js";
 import { Edge } from "../edges/edge.js";
 import { EdgeContainer } from "../datastructures/edge-container.js";
 import * as d3 from "d3";
+import { GraphSerializable } from "./serialize.js";
 
 export class Graph {
     static MAIN_G_CLASS = 'graph';
@@ -146,15 +147,25 @@ export class Graph {
     }
 
     export() {
+        let vertices = [];
         this.vertices.iterate((value) => {
-            console.log(JSON.stringify(value));
+            vertices.push(value.serialize());
         });
+
+        let edges = [];
+        this.edges.iterate((value) => {
+            edges.push(value.serialize());
+        });
+
+        return new GraphSerializable(
+            this.svgMainG.attr('transform') || '',
+            vertices,
+            edges,
+        );
     }
 
     import() {
-        this.vertices.iterate((value) => {
-            console.log(JSON.stringify(value));
-        });
+        console.log('import');
     }
 
     clear() {

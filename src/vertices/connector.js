@@ -4,6 +4,7 @@ import { TextOverflow } from "../misc/text-overflow.js";
 import { ACTION_TYPE } from "../events/event.js";
 import { UniqueComponent } from "./unique-component.js";
 import * as d3 from "d3";
+import { VertexConnectorSerializable } from "./serialize.js";
 
 export const ConnectorType = {
     INPUT: 1,
@@ -163,6 +164,15 @@ export class EdgeConnector extends UniqueComponent {
             .classed('selected', select);
     }
 
+    serialize() {
+        return new VertexConnectorSerializable(
+            this._uuid,
+            this.connectorType,
+            this.order,
+            this.name,
+            this.type,
+        );
+    }
 }
 
 export class InputVertexConnector extends EdgeConnector {

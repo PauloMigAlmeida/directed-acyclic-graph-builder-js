@@ -2,6 +2,7 @@
 
 import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event.js";
 import { EdgeLine } from "./line.js";
+import { EdgeSerializable } from "./serialize.js";
 
 export class Edge {
     
@@ -78,5 +79,12 @@ export class Edge {
             
             this.drawingContext.remove();
         }
+    }
+
+    serialize() {
+        return new EdgeSerializable(
+            this.vertexHolderA.connector._uuid,
+            this.vertexHolderB.connector._uuid
+        );
     }
 }
