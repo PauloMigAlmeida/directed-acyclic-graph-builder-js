@@ -19,8 +19,7 @@ export class TextOverflow {
         // try best fit
         let curr;
         let list = [];
-        // eslint-disable-next-line no-cond-assign
-        while (curr = content.pop()) {
+        while ((curr = content.pop()) !== undefined) {
             list.push(curr);
             let attempt = list.join(join_sep);
             attempt.substring(0, attempt.length - join_sep.length);
