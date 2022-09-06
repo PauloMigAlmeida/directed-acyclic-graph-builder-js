@@ -7,7 +7,7 @@ dag-builder-js is a simple-to-use Javascript DAG library with support to N:N ver
 ## Demo
 ![Demo](https://media.giphy.com/media/QNVOHs7kIbgLsMP7CN/giphy.gif)
 
-Live demo: https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/static/index.html
+**Live demo**: [https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/static/index.html](https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/static/index.html)
 
 Running the demo in your computer can be achieved by running:
 
