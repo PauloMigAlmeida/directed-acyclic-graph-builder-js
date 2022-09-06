@@ -50,7 +50,7 @@ export class EdgeDrawEvent {
         }
     }
 
-    dragEndEventHandler(pointer) {
+    dragEndEventHandler() {
         /*
             User dropped it outside of the draggable are which is equivalent to cancel the operation OR
             User has infringed any of the DAG rules

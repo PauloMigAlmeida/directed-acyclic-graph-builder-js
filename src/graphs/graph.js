@@ -241,7 +241,7 @@ export class Graph {
         else if (type === ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION)
             that.edgeDrawListener.draggingEventHandler(event, vertex, connector, updateLineOnly);
         else if (type === ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION)
-            that.edgeDrawListener.dragEndEventHandler(event);
+            that.edgeDrawListener.dragEndEventHandler();
     }
 
     edgeConnectorIsAdded(vertexHolderA, vertexHolderB) {
