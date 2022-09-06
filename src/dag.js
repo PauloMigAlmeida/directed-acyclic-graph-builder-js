@@ -1,10 +1,10 @@
 "use strict";
 
 /* basic usage */
-export { Vertex } from "./vertices/vertex.js";
-export { Graph } from "./graphs/graph.js";
-export { MouseCoordinate, ShapeSize } from "./misc/pojo.js";
-export { InputVertexConnector, OutputVertexConnector } from "./vertices/connector.js";
+export { Vertex } from "./vertices/vertex";
+export { Graph } from "./graphs/graph";
+export { MouseCoordinate, ShapeSize } from "./misc/pojo";
+export { InputVertexConnector, OutputVertexConnector } from "./vertices/connector";
 
 /* import/export */
 export {
@@ -12,7 +12,7 @@ export {
     VertexSerializable,
     VertexConnectorSerializable,
     EdgeSerializable
-} from "./serialization/serialize.js";
+} from "./serialization/serialize";
 
 /* styles */
 import "./dag.css"

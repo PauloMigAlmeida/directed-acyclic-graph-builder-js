@@ -1,9 +1,9 @@
 'use strict';
 
-import { VertexConnectorHolder } from "../datastructures/vertex-container.js";
-import { EdgeLine, EdgeLineState } from "../edges/line.js";
-import { Edge } from "../edges/edge.js";
-import { translationMat } from "./event.js";
+import { VertexConnectorHolder } from "../datastructures/vertex-container";
+import { EdgeLine, EdgeLineState } from "../edges/line";
+import { Edge } from "../edges/edge";
+import { translationMat } from "./event";
 
 export class EdgeDrawEvent {
 

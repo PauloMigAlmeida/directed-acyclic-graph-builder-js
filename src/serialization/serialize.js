@@ -1,8 +1,8 @@
 'use strict';
 
-import { MouseCoordinate, ShapeSize } from "../misc/pojo.js";
-import { ConnectorType, InputVertexConnector, OutputVertexConnector } from "../vertices/connector.js";
-import { Vertex } from "../vertices/vertex.js";
+import { MouseCoordinate, ShapeSize } from "../misc/pojo";
+import { ConnectorType, InputVertexConnector, OutputVertexConnector } from "../vertices/connector";
+import { Vertex } from "../vertices/vertex";
 
 export class GraphSerializable {
 

@@ -1,12 +1,12 @@
 'use strict';
 
-import { ACTION_TYPE } from "../events/event.js";
-import { EdgeDrawEvent } from "../events/edge-draw-listener.js";
-import { VertexContainer } from "../datastructures/vertex-container.js";
-import { EdgeConnector } from "../vertices/connector.js";
+import { ACTION_TYPE } from "../events/event";
+import { EdgeDrawEvent } from "../events/edge-draw-listener";
+import { VertexContainer } from "../datastructures/vertex-container";
+import { EdgeConnector } from "../vertices/connector";
 import { Edge } from "../edges/edge.js";
-import { EdgeContainer } from "../datastructures/edge-container.js";
-import { GraphSerializable, VertexSerializable, EdgeSerializable } from "../serialization/serialize.js";
+import { EdgeContainer } from "../datastructures/edge-container";
+import { GraphSerializable, VertexSerializable, EdgeSerializable } from "../serialization/serialize";
 import * as d3 from "d3";
 
 

@@ -1,9 +1,9 @@
 'use strict';
 
-import { TextOverflow } from "../misc/text-overflow.js";
-import { ACTION_TYPE } from "../events/event.js";
-import { UniqueComponent } from "./unique-component.js";
-import { VertexConnectorSerializable } from "../serialization/serialize.js";
+import { TextOverflow } from "../misc/text-overflow";
+import { ACTION_TYPE } from "../events/event";
+import { UniqueComponent } from "./unique-component";
+import { VertexConnectorSerializable } from "../serialization/serialize";
 import * as d3 from "d3";
 
 export const ConnectorType = {

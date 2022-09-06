@@ -1,8 +1,8 @@
 'use strict';
 
-import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event.js";
-import { EdgeLine } from "./line.js";
-import { EdgeSerializable } from "../serialization/serialize.js";
+import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event";
+import { EdgeLine } from "./line";
+import { EdgeSerializable } from "../serialization/serialize";
 
 export class Edge {
     

@@ -1,6 +1,6 @@
 'use strict';
 
-import {BaseActionListener} from "../events/base-action-listener.js";
+import {BaseActionListener} from "../events/base-action-listener";
 
 /**
  * UniqueComponent provide utility functions to mark SVG nodes
