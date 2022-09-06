@@ -1,10 +1,8 @@
 'use strict';
 
-import { Vertex } from "../dag";
-import { Edge } from "../edges/edge";
 import { BaseActionListener } from "../events/base-action-listener";
 import { ACTION_TYPE } from "../events/event";
-import { ConnectorType, EdgeConnector } from "../vertices/connector";
+import { ConnectorType } from "../vertices/connector";
 import { ConnectionDegree, KahnTopologicalSort } from "./kahn-topological-sort";
 
 export class EdgeContainer extends BaseActionListener {
