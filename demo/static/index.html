@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Directed-Acyclic-Graph by Paulo Almeida</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+<script type="module" src="demo.js"></script></head>
+<body>
+
+<div class="left">
+    <div class="dragitems">
+        <p id="header">Blocks</p>
+        <div class="blockelem" draggable="true" catalog-id="0">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <img src="assets/database.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">Dataset Reader</p>
+                    <p class="blockdesc">Load dataset from shared folder into memory</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockelem" draggable="true" catalog-id="1">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <span></span>
+                    <img src="assets/action.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">Split Dataset</p>
+                    <p class="blockdesc">Split Dataset into training and testing datasets</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockelem" draggable="true" catalog-id="2">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <span></span>
+                    <img src="assets/log.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">Shuffle Dataset</p>
+                    <p class="blockdesc">Shuffle data in the dataset using the pseudo-random algo of choice</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockelem" draggable="true" catalog-id="3">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <span></span>
+                    <img src="assets/log.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">Normalise Data</p>
+                    <p class="blockdesc">Normalise data between 0 and 1 values</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockelem" draggable="true" catalog-id="4">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <span></span>
+                    <img src="assets/log.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">ResNet CNN Model</p>
+                    <p class="blockdesc">Create a CCN model based on ResNet architecture</p>
+                </div>
+            </div>
+        </div>
+        <div class="blockelem" draggable="true" catalog-id="5">
+            <div class="grabme">
+                <img src="assets/grabme.svg" alt="">
+            </div>
+            <div class="blockin">
+                <div class="blockico">
+                    <span></span>
+                    <img src="assets/log.svg" alt="">
+                </div>
+                <div class="blocktext">
+                    <p class="blocktitle">Train Model</p>
+                    <p class="blockdesc">Train model using defaut loss and optimiser functions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="right" id="graph"></div>
+
+<div id="footer">
+    <a href="https://github.com/PauloMigAlmeida/directed-acyclic-graph-builder-js" target="_blank">GitHub</a>
+    <span>.</span>
+    <a href="https://twitter.com/PauloMigAlmeida" target="_blank">Twitter</a>
+    <span>.</span>
+    <a href="https://deepdives.medium.com/" target="_blank"><p>Made with</p><img src="assets/heart.svg" alt=""><p>by</p> Paulo Almeida</a>
+</div>
+
+<div id="toolbox">
+    <input type="file"  id="hidden-file-upload"/>
+    <input type="image" id="upload-input"   src="assets/upload-icon.png" alt="upload graph"/>
+    <input type="image" id="download-input" src="assets/download-icon.png" alt="download graph"/>
+    <input type="image" id="delete-graph"   src="assets/trash-icon.png" alt="delete graph"> 
+</div>
+
+</body>
+</html>
