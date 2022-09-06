@@ -1,13 +1,18 @@
 'use strict';
 
-export class VertexContainer {
+import { BaseActionListener } from "../events/base-action-listener";
+import { ACTION_TYPE } from "../events/event";
+
+export class VertexContainer extends BaseActionListener {
 
     constructor() {
+        super();
         this.vertices = [];
     }
 
     append(vertex) {
         this.vertices.push(vertex);
+        this.triggerEvent(ACTION_TYPE.VERT_ADDED_ACTION, [vertex]);
     }
 
     findVertexConnectorByUUID(uuid) {
@@ -39,7 +44,10 @@ export class VertexContainer {
         // remove from svg
         this.vertices
             .filter((i) => criteria(i))
-            .forEach((i) => i.remove());
+            .forEach((i) => {
+                i.remove();
+                this.triggerEvent(ACTION_TYPE.VERT_REMOVED_ACTION, [i]);
+            });
 
         // remove from list
         this.vertices = this.vertices.filter((i) => !criteria(i));

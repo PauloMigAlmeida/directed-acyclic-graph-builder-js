@@ -13,13 +13,30 @@ import * as d3 from "d3";
 export class Graph {
     static MAIN_G_CLASS = 'graph';
 
-    constructor(containerSelector) {
+    constructor(containerSelector, vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback) {
         this.containerSelector = containerSelector;
         this.svg = null
         this.svgMainG = null
-        this.edgeDrawListener = null;
+        
         this.vertices = new VertexContainer();
         this.edges = new EdgeContainer();
+
+        /* internal-only listeners */
+        this.edgeDrawListener = null;
+
+        /* public-facing listeners */
+        if(vertexAddedCallback)
+            this.vertices.addActionListener(ACTION_TYPE.VERT_ADDED_ACTION, vertexAddedCallback, [this]);
+        
+        if(vertexRemovedCallback)
+            this.vertices.addActionListener(ACTION_TYPE.VERT_REMOVED_ACTION, vertexRemovedCallback, [this]);
+        
+        if(edgeAddedCallback)
+            this.edges.addActionListener(ACTION_TYPE.EDGE_ADDED_ACTION, edgeAddedCallback, [this]);
+        
+        if(edgeRemovedCallback)
+            this.edges.addActionListener(ACTION_TYPE.EDGE_REMOVED_ACTION, edgeRemovedCallback, [this]);
+
         this.init();
     }
 
@@ -33,7 +50,7 @@ export class Graph {
         this.edgeDrawListener = new EdgeDrawEvent(this);
         this.resize();
         this.addSymbolicDefs();
-        this.addListenerDefaults();
+        this.addListenerDefaults();        
     }
 
     /**
@@ -132,7 +149,7 @@ export class Graph {
         this.vertices.append(vertex);
     }
 
-    appendEdge(edge){
+    appendEdge(edge) {
         //TODO add validations in case this comes from import method...
         if (this.edges.append(edge)) {
             this.update();
@@ -227,7 +244,7 @@ export class Graph {
             that.edgeDrawListener.dragEndEventHandler(event);
     }
 
-    edgeConnectorIsAdded(vertexHolderA, vertexHolderB) {        
+    edgeConnectorIsAdded(vertexHolderA, vertexHolderB) {
         this.appendEdge(new Edge(vertexHolderA, vertexHolderB));
     }
 

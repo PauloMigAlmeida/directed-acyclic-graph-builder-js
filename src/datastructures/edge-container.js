@@ -2,11 +2,14 @@
 
 import { Vertex } from "../dag.js";
 import { Edge } from "../edges/edge.js";
+import { BaseActionListener } from "../events/base-action-listener.js";
+import { ACTION_TYPE } from "../events/event.js";
 import { ConnectorType, EdgeConnector } from "../vertices/connector.js";
 import { ConnectionDegree, KahnTopologicalSort } from "./kahn-topological-sort.js";
 
-export class EdgeContainer {
+export class EdgeContainer extends BaseActionListener {
     constructor() {
+        super();
         this.edges = [];
     }
 
@@ -22,8 +25,12 @@ export class EdgeContainer {
         let exists = this.edges.some((i) =>
             i.vertexHolderA.connector._uuid == uuia_a &&
             i.vertexHolderB.connector._uuid == uuia_b);
-        if (!exists)
+        
+        if (!exists){
             this.edges.push(edge);
+            this.triggerEvent(ACTION_TYPE.EDGE_ADDED_ACTION, [edge]);
+        }
+            
 
         return !exists;
     }
@@ -100,20 +107,17 @@ export class EdgeContainer {
             return [vA._uuid, vB._uuid].includes(vertex._uuid);
         };
 
-        // remove from svg
-        this.edges
-            .filter((i) => selectionCriteria(i))
-            .forEach((i) => i.remove());
-
-        // remove from list
-        this.edges = this.edges.filter((i) => !selectionCriteria(i));
+        this.remove(selectionCriteria);
     }
 
     remove(criteria) {
         // remove from svg
         this.edges
             .filter((i) => criteria(i))
-            .forEach((i) => i.remove());
+            .forEach((i) => {
+                i.remove();
+                this.triggerEvent(ACTION_TYPE.EDGE_REMOVED_ACTION, [i]);
+            });
 
         // remove from list
         this.edges = this.edges.filter((i) => !criteria(i));

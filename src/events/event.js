@@ -8,6 +8,14 @@ export const ACTION_TYPE = {
 
     /* Vertex drag events */
     VERT_DRAGGING_ACTION: 4,
+
+    /* Public-facing vertex events */ 
+    VERT_ADDED_ACTION: 5,
+    VERT_REMOVED_ACTION: 6,
+
+    /* Public-facing edge events */ 
+    EDGE_ADDED_ACTION: 7,
+    EDGE_REMOVED_ACTION: 8,
 };
 
 export function isFunction(value) {

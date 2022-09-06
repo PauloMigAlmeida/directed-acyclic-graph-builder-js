@@ -74,22 +74,12 @@ const catalog = [
 ];
 
 /* Dag-build-js initialisation */
-let graph = new Graph('#graph');
+const vertexAddedCallback = (_type, _graph, vertex) => { console.log('vertexAddedCallback', vertex); }; // optional
+const vertexRemovedCallback = (_type, _graph, vertex) => { console.log('vertexRemovedCallback', vertex); }; // optional
+const edgeAddedCallback = (_type, _graph, edge) => { console.log('edgeAddedCallback', edge); }; // optional
+const edgeRemovedCallback = (_type, _graph, edge) => { console.log('edgeRemovedCallback', edge); }; // optional
 
-graph.appendVertex(new Vertex(
-    new MouseCoordinate(100, 100),
-    new ShapeSize(200, 100),
-    'Shuffle Data',
-    [
-        new InputVertexConnector(0, 'data_in', "List[List[List[float]]]"),
-        new InputVertexConnector(1, 'seed_asda_asdas', 'int'),
-    ],
-    [
-        new OutputVertexConnector(0, 'data', 'List[float]'),
-    ],
-));
-
-graph.update();
+let graph = new Graph('#graph', vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback);
 
 /* Drag and Drop events */
 const graphEl = document.getElementById('graph');
