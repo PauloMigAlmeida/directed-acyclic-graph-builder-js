@@ -5,7 +5,7 @@ Directed-Acyclic-Graph-Builder-js (dag-builder-js)
 dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.
 
 ## Demo
-TODO: Record clip of dag-js
+![Demo](https://media.giphy.com/media/QNVOHs7kIbgLsMP7CN/giphy.gif)
 
 Running the demo in your computer can be achieved by running:
 
@@ -134,7 +134,7 @@ Parameter | Type | Description
 --- | --- | ---
    `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
    `graph` | [Graph](src/graphs/graph.js) | Graph instance
-   `edge` | [Vertex](src/edges/edge.js) | Edge added
+   `edge` | [Edge](src/edges/edge.js) | Edge added
 
 ### onEdgeRemoved
 ```javascript
@@ -149,7 +149,7 @@ Parameter | Type | Description
 --- | --- | ---
    `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
    `graph` | [Graph](src/graphs/graph.js) | Graph instance
-   `edge` | [Vertex](src/edges/edge.js) | Edge removed
+   `edge` | [Edge](src/edges/edge.js) | Edge removed
 
 ## Features
 
