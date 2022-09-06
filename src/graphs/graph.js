@@ -219,7 +219,7 @@ export class Graph {
         let vertex = null;
         let connector = null;
         let uuid = null;
-        let targetEl = d3.select(event.sourceEvent.path[0]);
+        let targetEl = d3.select(event.sourceEvent.composedPath()[0]);
 
         //check if that's not a line
         let updateLineOnly = false;
