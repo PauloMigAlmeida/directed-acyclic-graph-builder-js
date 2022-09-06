@@ -25,8 +25,15 @@ npm run start
 
 Adding dag-builder-js is pretty simple:
 
+Minified version
 ```html
 <script src='https://cdn.jsdelivr.net/npm/dag-builder-js' type="module" charset="utf-8"></script>
+```
+
+Debug version
+```html
+<script src='https://cdn.jsdelivr.net/npm/dag-builder-js/dist/dag.debug.js' type="module" charset="utf-8"></script>
+
 ```
 
 Or 
