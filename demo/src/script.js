@@ -8,7 +8,7 @@ import {
     InputVertexConnector,
     OutputVertexConnector,
     GraphSerializable,
-} from 'dag-builder-js';
+} from 'dag-builder-js/dist/dag.debug';
 import { saveAs } from 'file-saver';
 import './style.css';
 
@@ -74,12 +74,12 @@ const catalog = [
 ];
 
 /* Dag-build-js initialisation */
-const vertexAddedCallback = (_type, _graph, vertex) => { console.log('vertexAddedCallback', vertex); }; // optional
-const vertexRemovedCallback = (_type, _graph, vertex) => { console.log('vertexRemovedCallback', vertex); }; // optional
-const edgeAddedCallback = (_type, _graph, edge) => { console.log('edgeAddedCallback', edge); }; // optional
-const edgeRemovedCallback = (_type, _graph, edge) => { console.log('edgeRemovedCallback', edge); }; // optional
+const onVertexAdded = (_type, _graph, vertex) => { console.log('onVertexAdded', vertex); }; // optional
+const onVertexRemoved = (_type, _graph, vertex) => { console.log('onVertexRemoved', vertex); }; // optional
+const onEdgeAdded = (_type, _graph, edge) => { console.log('onEdgeAdded', edge); }; // optional
+const onEdgeRemoved = (_type, _graph, edge) => { console.log('onEdgeRemoved', edge); }; // optional
 
-let graph = new Graph('#graph', vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback);
+let graph = new Graph('#graph', onVertexAdded, onVertexRemoved, onEdgeAdded, onEdgeRemoved);
 
 /* Drag and Drop events */
 const graphEl = document.getElementById('graph');

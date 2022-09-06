@@ -33,6 +33,8 @@ Or
 
 ```bash
 npm i dag-builder-js --save
+# node -v -> v14.17.6
+# npm -v -> 6.14.15
 ```
 
 ## Usage
@@ -54,9 +56,16 @@ import {
     InputVertexConnector,
     OutputVertexConnector,
     GraphSerializable,
-} from "dag-builder-js";
+} from "dag-builder-js"; // (~70kb)
+// Or: (for troubleshooting)
+//  from 'dag-builder-js/dist/dag.debug'; (~300kb)
 
-let graph = new Graph('#graph');
+const onVertexAdded = (type, graph, vertex) => {}; // optional
+const onVertexRemoved = (type, graph, vertex) => {}; // optional
+const onEdgeAdded = (type, graph, edge) => {}; // optional
+const onEdgeRemoved = (type, graph, edge) => {}; // optional
+
+let graph = new Graph('#graph', onVertexAdded, onVertexRemoved, onEdgeAdded, onEdgeRemoved);
 
 graph.appendVertex(new Vertex(
     // location
@@ -81,7 +90,66 @@ graph.update();
 
 ## Callbacks
 
-TBD
+### onVertexAdded
+```javascript
+
+function onVertexAdded(type, graph, vertex){
+	// When vertex is added to graph
+}
+```
+Gets triggered when vertex is appended to graph.
+
+Parameter | Type | Description
+--- | --- | ---
+   `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
+   `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `vertex` | [Vertex](src/vertices/vertex.js) | Vertex added
+
+### onVertexRemoved
+```javascript
+
+function onVertexRemoved(type, graph, vertex){
+	// When vertex is removed from graph
+}
+```
+Gets triggered when vertex is removed from graph.
+
+Parameter | Type | Description
+--- | --- | ---
+   `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
+   `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `vertex` | [Vertex](src/vertices/vertex.js) | Vertex removed
+
+
+### onEdgeAdded
+```javascript
+
+function onEdgeAdded(type, graph, vertex){
+	// When edge is added to graph
+}
+```
+Gets triggered when edge is appended to graph.
+
+Parameter | Type | Description
+--- | --- | ---
+   `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
+   `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `edge` | [Vertex](src/edges/edge.js) | Edge added
+
+### onEdgeRemoved
+```javascript
+
+function onEdgeRemoved(type, graph, vertex){
+	// When edge is removed from graph
+}
+```
+Gets triggered when edge is removed from graph.
+
+Parameter | Type | Description
+--- | --- | ---
+   `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
+   `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `edge` | [Vertex](src/edges/edge.js) | Edge removed
 
 ## Features
 
@@ -92,6 +160,7 @@ TBD
  - [x] Import/Export Graph State
  - [x] Real-time acyclic validation (prevent users from creating cycles)
  - [x] N:N Edges Connections
+ - [x] Public-facing callbacks for common operations (add/rem)
  - [x] Npm package
  
 

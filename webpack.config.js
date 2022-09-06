@@ -1,7 +1,6 @@
 const path = require('path');
 
-module.exports = {
-    mode: 'production',
+const common = {
     devtool: 'source-map',
     optimization: {
         usedExports: true,
@@ -13,15 +12,6 @@ module.exports = {
         outputModule: true,
     },
 
-    output: {
-        filename: 'dag.js',
-        path: path.resolve(__dirname, 'dist'),
-        library: {
-            type: 'module',
-        },
-        clean: true,
-    },
-
     module: {
         rules: [
             {
@@ -30,5 +20,33 @@ module.exports = {
             },
         ],
     },
+}
 
-};
+module.exports = [
+    {
+        mode: 'production',
+        
+        output: {
+            filename: 'dag.js',
+            path: path.resolve(__dirname, 'dist'),
+            library: {
+                type: 'module',
+            },
+        },
+    
+        ...common
+    },
+    {
+        mode: 'development',
+        
+        output: {
+            filename: 'dag.debug.js',
+            path: path.resolve(__dirname, 'dist'),
+            library: {
+                type: 'module',
+            },
+        },
+    
+        ...common
+    },
+];
