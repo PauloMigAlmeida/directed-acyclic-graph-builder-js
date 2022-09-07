@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GPL-3.0-only */
 'use strict';
 
 import {ACTION_TYPE, isFunction} from "./event";
