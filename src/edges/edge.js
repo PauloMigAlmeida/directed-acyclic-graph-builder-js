@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GPL-3.0-only */
 'use strict';
 
 import { translationMat, EMPTY_TRANSLATION_MAT } from "../events/event";
