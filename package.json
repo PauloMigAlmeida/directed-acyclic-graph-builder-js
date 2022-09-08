@@ -4,8 +4,9 @@
   "description": "dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.",
   "main": "dist/dag.js",
   "scripts": {
-    "build": "npx webpack",
-    "watch": "npx webpack --watch"
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npx webpack",
+    "watch": "npm run clean && npx webpack --watch"
   },
   "repository": {
     "type": "git",
