@@ -2,15 +2,12 @@ const path = require('path');
 
 const common = {
     devtool: 'source-map',
+
     optimization: {
         usedExports: true,
     },
 
-    entry: './src/dag.js',
-
-    experiments: {
-        outputModule: true,
-    },
+    entry: './src/dag.js',    
 
     module: {
         rules: [
@@ -20,12 +17,22 @@ const common = {
             },
         ],
     },
-}
+};
+
+const es = {
+
+    experiments: {
+        outputModule: true,
+    },
+
+    ...common
+};
 
 module.exports = [
+    // ES module... at this point this is still experimental for webpack :(
     {
         mode: 'production',
-        
+
         output: {
             filename: 'dag.js',
             path: path.resolve(__dirname, 'dist'),
@@ -34,7 +41,7 @@ module.exports = [
             },
         },
     
-        ...common
+        ...es
     },
     {
         mode: 'development',
@@ -44,6 +51,33 @@ module.exports = [
             path: path.resolve(__dirname, 'dist'),
             library: {
                 type: 'module',
+            },
+        },
+    
+        ...es
+    },
+    // Common JS
+    {
+        mode: 'production',
+        
+        output: {
+            filename: 'dag.cmj.js',
+            path: path.resolve(__dirname, 'dist'),
+            library: {
+                type: 'commonjs2',
+            },
+        },
+    
+        ...common
+    },
+    {
+        mode: 'development',
+        
+        output: {
+            filename: 'dag.cmj.debug.js',
+            path: path.resolve(__dirname, 'dist'),
+            library: {
+                type: 'commonjs2',
             },
         },
     
