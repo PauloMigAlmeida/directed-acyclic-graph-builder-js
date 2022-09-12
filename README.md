@@ -1,6 +1,10 @@
 Directed-Acyclic-Graph-Builder-js (dag-builder-js)
 ===
 
+![version](https://img.shields.io/npm/v/dag-builder-js?label=latest%20version)
+![downloads](https://img.shields.io/npm/dm/dag-builder-js.svg)
+
+
 ## What is this?
 dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.
 
