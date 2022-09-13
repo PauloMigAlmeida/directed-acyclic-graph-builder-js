@@ -47,9 +47,11 @@ export class EdgeConnector extends UniqueComponent {
 
         return Math.floor((maxWidth - minWidthReq) / 2) - 1;
     }
-
-    // eslint-disable-next-line no-unused-vars
-    getEdgeConnectorConfig(_x, _y, _maxWidth) {
+    
+    /**
+     * Abstract method to be implemented on each subclass of EdgeConnector
+     */
+    getEdgeConnectorConfig() {
         throw new Error('You have to implement the method getEdgeConnectorConfig(x, y, maxWidth) in your subclass!');
     }
 
@@ -163,8 +165,7 @@ export class InputVertexConnector extends EdgeConnector {
         super(ConnectorType.INPUT, order, name, type);
     }
 
-    // eslint-disable-next-line no-unused-vars
-    getEdgeConnectorConfig(x, y, _maxWidth) {
+    getEdgeConnectorConfig(x, y) {
         return {
             x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
             y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
@@ -205,9 +206,8 @@ export class CustomInputVertexConnector extends InputVertexConnector {
             this.triggerEvent(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION, [this, event])
         });
     }
-
-    // eslint-disable-next-line no-unused-vars
-    getEdgeConnectorConfig(x, y, _maxWidth) {
+    
+    getEdgeConnectorConfig(x, y) {
         //TODO change css so that users know straight away that this is a custom input
         return {
             x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
