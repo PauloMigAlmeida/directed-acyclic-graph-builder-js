@@ -5,8 +5,8 @@ import { TextOverflow } from "../misc/text-overflow";
 import { ACTION_TYPE, translationMat } from "../events/event";
 import { UniqueComponent } from "./unique-component";
 import { ConnectorType } from "./connector";
-import { VertexSerializable } from "../serialization/serialize"; 
-import { MouseCoordinate } from "../misc/pojo"; 
+import { VertexSerializable } from "../serialization/serialize";
+import { MouseCoordinate } from "../misc/pojo";
 import * as d3 from "d3";
 
 export class Vertex extends UniqueComponent {
@@ -149,18 +149,20 @@ export class Vertex extends UniqueComponent {
     }
 
     drawConnector(connector, next_y) {
-        // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input
+        const eventsOfInterest = [];
         if (connector.connectorType === ConnectorType.OUTPUT) {
-            // pass down events of interest that might be relevant for this component
-            const eventsOfInterest = [
-                ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION,
-                ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION,
-                ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION];
-
-            this.listeners
-                .filter((e) => eventsOfInterest.includes(e.type))
-                .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
+            // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input   
+            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION);
+            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION);
+            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION);
+        } else if (connector.connectorType === ConnectorType.CUSTOM_INPUT) {
+            eventsOfInterest.push(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION);
         }
+
+        // pass down events of interest that might be relevant for this component
+        this.listeners
+            .filter((e) => eventsOfInterest.includes(e.type))
+            .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
 
         // draw
         const wrapper = connector.draw(this.drawingContext, 0, next_y, this.size.width);
@@ -212,7 +214,7 @@ export class Vertex extends UniqueComponent {
         }
     }
 
-    serialize() {       
+    serialize() {
         const mat = translationMat(this.drawingContext.node());
         return new VertexSerializable(
             this._uuid,

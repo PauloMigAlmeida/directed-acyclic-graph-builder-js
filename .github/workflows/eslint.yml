@@ -17,14 +17,14 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm install
-          npm install @microsoft/eslint-formatter-sarif@2.1.7
+          npm ci
 
       - name: Run ESLint
-        run: npx eslint src/**/*.js
-          --config .eslintrc.json
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+        run: |
+          npx eslint src/**/*.js \
+            --config .eslintrc.json \
+            --format @microsoft/eslint-formatter-sarif \
+            --output-file eslint-results.sarif
         continue-on-error: true
 
       - name: Upload analysis results to GitHub

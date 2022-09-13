@@ -12,7 +12,19 @@ export class VertexContainer extends BaseActionListener {
     }
 
     append(vertex) {
-        this.vertices.push(vertex);
+        // Add default listeners                
+        const eventsOfInterest = [
+            ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION,
+            ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION,
+            ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION,
+            ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION,
+            ACTION_TYPE.VERT_DRAGGING_ACTION
+        ];             
+        this.listeners
+            .filter((e) => eventsOfInterest.includes(e.type))
+            .forEach((e) => vertex.addActionListener(e.type, e.callback, e.params));
+
+        this.vertices.push(vertex);        
         this.triggerEvent(ACTION_TYPE.VERT_ADDED_ACTION, [vertex]);
     }
 

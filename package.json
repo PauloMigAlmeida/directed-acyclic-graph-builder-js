@@ -1,12 +1,13 @@
 {
   "name": "dag-builder-js",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.",
   "main": "dist/dag.js",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && npx webpack",
-    "watch": "npm run clean && npx webpack --watch"
+    "watch": "npm run clean && npx webpack --watch",
+    "lint": "npx eslint -c .eslintrc.json src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "d3": "^7.6.1"
   },
   "devDependencies": {
+    "@microsoft/eslint-formatter-sarif": "^2.1.7",
     "css-loader": "^6.7.1",
     "eslint": "^8.23.0",
     "style-loader": "^3.3.1",

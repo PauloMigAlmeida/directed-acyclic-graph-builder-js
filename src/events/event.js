@@ -10,13 +10,16 @@ export const ACTION_TYPE = {
     /* Vertex drag events */
     VERT_DRAGGING_ACTION: 4,
 
-    /* Public-facing vertex events */ 
+    /* Public-facing vertex events */
     VERT_ADDED_ACTION: 5,
     VERT_REMOVED_ACTION: 6,
 
-    /* Public-facing edge events */ 
+    /* Public-facing edge events */
     EDGE_ADDED_ACTION: 7,
     EDGE_REMOVED_ACTION: 8,
+
+    /* Public-facing edge connector events */
+    CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION: 9,
 };
 
 export function isFunction(value) {
