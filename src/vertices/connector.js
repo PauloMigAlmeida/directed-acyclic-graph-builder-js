@@ -47,6 +47,10 @@ export class EdgeConnector extends UniqueComponent {
         return Math.floor((maxWidth - minWidthReq) / 2) - 1;
     }
 
+    getEdgeConnectorConfig(_x, _y, _maxWidth) {
+        throw new Error('You have to implement the method getEdgeConnectorConfig!');
+     }
+
     draw(drawingContext, x, y, maxWidth) {
         this.drawingContext = drawingContext.append('g');
 
@@ -87,24 +91,7 @@ export class EdgeConnector extends UniqueComponent {
         this.typeEl.call(TextOverflow.calculateCharsOverflow, labelWidth);
 
         // edge connector
-        let edgeConnector;
-        if (this.connectorType === ConnectorType.INPUT) {
-            edgeConnector = {
-                x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
-                y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
-                class: 'input',
-                width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
-                height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
-            }
-        } else {
-            edgeConnector = {
-                x: x + maxWidth - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
-                y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
-                class: 'output',
-                width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
-                height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
-            }
-        }
+        const edgeConnector = this.getEdgeConnectorConfig(x, y, maxWidth);        
 
         this.edgeConnectorEl = this.drawingContext
             .append('rect')
@@ -118,10 +105,7 @@ export class EdgeConnector extends UniqueComponent {
             .attr('height', edgeConnector.height);
 
         this.animateEdgeConnector();
-        this.markNode(this.edgeConnectorEl);
-        this.setupDragEvents();
-
-        return this.drawingContext;
+        this.markNode(this.edgeConnectorEl); 
     }
 
     animateEdgeConnector() {
@@ -150,14 +134,7 @@ export class EdgeConnector extends UniqueComponent {
         };
 
         expandStrokeWidth();
-    }
-
-    setupDragEvents() {
-        this.edgeConnectorEl.call(d3.drag()
-            .on('start', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, [event]))
-            .on('drag', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, [event]))
-            .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));
-    }
+    }    
 
     selectEdgeConnector(select) {
         this.drawingContext
@@ -182,11 +159,54 @@ export class InputVertexConnector extends EdgeConnector {
         super(ConnectorType.INPUT, order, name, type);
     }
 
+    draw(drawingContext, x, y, maxWidth) {
+        super.draw(drawingContext, x, y, maxWidth);        
+        this.setupEvents();
+        return this.drawingContext;
+    }
+
+    setupEvents() {                
+        this.edgeConnectorEl.on('click', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_CLICK_ACTION, [event]));
+    }
+
+    getEdgeConnectorConfig(x, y, maxWidth) {
+        return {
+            x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
+            y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
+            class: 'input',
+            width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
+            height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
+        };
+    }
+
 }
 
 export class OutputVertexConnector extends EdgeConnector {
 
     constructor(order, name, type) {
         super(ConnectorType.OUTPUT, order, name, type);
+    }
+
+    draw(drawingContext, x, y, maxWidth) {
+        super.draw(drawingContext, x, y, maxWidth);        
+        this.setupEvents();
+        return this.drawingContext;
+    }
+
+    setupEvents() {
+        this.edgeConnectorEl.call(d3.drag()
+            .on('start', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, [event]))
+            .on('drag', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, [event]))
+            .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));        
+    }
+
+    getEdgeConnectorConfig(x, y, maxWidth) {
+        return {
+            x: x + maxWidth - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
+            y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
+            class: 'output',
+            width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
+            height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
+        };
     }
 }
