@@ -67,19 +67,31 @@ import {
     MouseCoordinate,
     ShapeSize,
     InputVertexConnector,
+    CustomInputVertexConnector,
     OutputVertexConnector,
     GraphSerializable,
 } from "dag-builder-js"; // (~70kb)
-// Or: (for troubleshooting)
-//  from 'dag-builder-js/dist/dag.debug'; (~300kb)
 
-const onVertexAdded = (type, graph, vertex) => {}; // optional
-const onVertexRemoved = (type, graph, vertex) => {}; // optional
-const onEdgeAdded = (type, graph, edge) => {}; // optional
-const onEdgeRemoved = (type, graph, edge) => {}; // optional
+/* Dag-Builder-JS initialisation */
+const graph = new Graph('#graph');
 
-let graph = new Graph('#graph', onVertexAdded, onVertexRemoved, onEdgeAdded, onEdgeRemoved);
+/* Optional Event Listeners */
+const onVertexAdded = (type, graph, vertex) => {};
+graph.addVertexAddedListener(onVertexAdded);
 
+const onVertexRemoved = (type, graph, vertex) => {};
+graph.addVertexRemovedListener(onVertexRemoved);
+
+const onEdgeAdded = (type, graph, edge) => {};
+graph.addEdgeAddedListener(onEdgeAdded);
+
+const onEdgeRemoved = (type, graph, edge) => {};
+graph.addEdgeRemovedListener(onEdgeRemoved);
+
+const onCustomInputEdgeConnectorClicked = (type, graph, edge, event) => {};
+graph.addCustomInputEdgeConnectorClickedListener(onCustomInputEdgeConnectorClicked);
+
+/* Common operations */
 graph.appendVertex(new Vertex(
     // location
     new MouseCoordinate(100, 100),
@@ -91,12 +103,15 @@ graph.appendVertex(new Vertex(
     [
         new InputVertexConnector(0, 'data_in', "type1"),
         new InputVertexConnector(1, 'other_in', 'type2'),
+
+        /* this is an InputVertexConnector that can hold a custom value */
+        new CustomInputVertexConnector(2, 'other_in', 'type2', 42),
     ],
     // outputs
     [new OutputVertexConnector(0, 'data_out', 'type3')],
 ));
 
-// render changes
+/* render changes */
 graph.update();
 
 ```
@@ -163,6 +178,24 @@ Parameter | Type | Description
    `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
    `graph` | [Graph](src/graphs/graph.js) | Graph instance
    `edge` | [Edge](src/edges/edge.js) | Edge removed
+
+### onCustomInputEdgeConnectorClicked
+```javascript
+
+function onCustomInputEdgeConnectorClicked(type, graph, edge, event){
+	// When CustomInputEdgeConnector is clicked
+}
+```
+Gets triggered CustomInputEdgeConnector is clicked
+
+Parameter | Type | Description
+--- | --- | ---
+   `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
+   `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `edge` | [Edge](src/edges/edge.js) | Edge removed
+   `event` | object | DOM event
+
+
 
 ## Features
 
