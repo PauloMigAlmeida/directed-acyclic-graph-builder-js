@@ -154,7 +154,7 @@ export class Vertex extends UniqueComponent {
             // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input   
             eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION);
             eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION);
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION);           
+            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION);
         } else if (connector.connectorType === ConnectorType.CUSTOM_INPUT) {
             eventsOfInterest.push(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION);
         }

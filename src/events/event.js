@@ -5,16 +5,16 @@ export const ACTION_TYPE = {
     /* Edge connector drag events */
     EDGE_CONN_DRAG_START_ACTION: 1,
     EDGE_CONN_DRAG_END_ACTION: 2,
-    EDGE_CONN_DRAGGING_ACTION: 3,    
+    EDGE_CONN_DRAGGING_ACTION: 3,
 
     /* Vertex drag events */
     VERT_DRAGGING_ACTION: 4,
 
-    /* Public-facing vertex events */ 
+    /* Public-facing vertex events */
     VERT_ADDED_ACTION: 5,
     VERT_REMOVED_ACTION: 6,
 
-    /* Public-facing edge events */ 
+    /* Public-facing edge events */
     EDGE_ADDED_ACTION: 7,
     EDGE_REMOVED_ACTION: 8,
 
