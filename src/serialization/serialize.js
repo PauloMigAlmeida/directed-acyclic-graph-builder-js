@@ -2,16 +2,22 @@
 'use strict';
 
 import { MouseCoordinate, ShapeSize } from "../misc/pojo";
-import { ConnectorType, InputVertexConnector, OutputVertexConnector } from "../vertices/connector";
+import { 
+    ConnectorType, 
+    InputVertexConnector, 
+    CustomInputVertexConnector, 
+    OutputVertexConnector 
+} from "../vertices/connector";
 import { Vertex } from "../vertices/vertex";
+
 
 export class GraphSerializable {
 
-    constructor(vertices, edges){
+    constructor(vertices, edges) {
         this.vertices = vertices;
         this.edges = edges;
     }
-    
+
 }
 
 export class VertexSerializable {
@@ -30,8 +36,22 @@ export class VertexSerializable {
             new MouseCoordinate(this.coordinate.x, this.coordinate.y),
             new ShapeSize(this.size.width, this.size.height),
             this.title,
-            this.inputs.map((i) => new VertexConnectorSerializable(i.uuid, i.connectorType, i.order, i.name, i.type).deserialize()),
-            this.outputs.map((i) => new VertexConnectorSerializable(i.uuid, i.connectorType, i.order, i.name, i.type).deserialize()),
+            this.inputs.map((i) => new VertexConnectorSerializable(
+                i.uuid, 
+                i.connectorType, 
+                i.order, 
+                i.name, 
+                i.type,
+                i.customValue,
+            ).deserialize()),
+            this.outputs.map((i) => new VertexConnectorSerializable(
+                i.uuid, 
+                i.connectorType, 
+                i.order, 
+                i.name, 
+                i.type, 
+                i.customValue,
+            ).deserialize()),
         );
 
         vertex.uuid = this.uuid;
@@ -43,20 +63,26 @@ export class VertexSerializable {
 
 export class VertexConnectorSerializable {
 
-    constructor(uuid, connectorType, order, name, type) {
+    constructor(uuid, connectorType, order, name, type, customValue) {
         this.uuid = uuid;
         this.connectorType = connectorType;
         this.order = order;
         this.name = name;
         this.type = type;
+        this.customValue = customValue;
     }
-    
+
     deserialize() {
         let connector = null;
-        if(this.connectorType === ConnectorType.INPUT){
+        if (this.connectorType === ConnectorType.INPUT) {
             connector = new InputVertexConnector(this.order, this.name, this.type);
-        }else{
+        } else if (this.connectorType === ConnectorType.CUSTOM_INPUT) {
+            connector = new CustomInputVertexConnector(this.order, this.name, this.type);
+            connector.customValue = this.customValue;
+        } else if (this.connectorType === ConnectorType.OUTPUT) {
             connector = new OutputVertexConnector(this.order, this.name, this.type);
+        } else { // ensuring exaustive selection            
+            throw 'Unknown connector type';
         }
         connector.uuid = this.uuid;
         return connector;

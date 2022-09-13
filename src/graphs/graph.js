@@ -14,7 +14,7 @@ import * as d3 from "d3";
 export class Graph {
     static MAIN_G_CLASS = 'graph';
 
-    constructor(containerSelector, vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback) {
+    constructor(containerSelector, vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback, edgeConnectorClickedCallback) {
         this.containerSelector = containerSelector;
         this.svg = null
         this.svgMainG = null
@@ -145,7 +145,7 @@ export class Graph {
         vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, this.edgeConnectorGenericDragHandler, [this]);
         vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, this.edgeConnectorGenericDragHandler, [this]);
         vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, this.edgeConnectorGenericDragHandler, [this]);
-        vertex.addActionListener(ACTION_TYPE.VERT_DRAGGING_ACTION, this.vertexDragHandler, [this]);
+        vertex.addActionListener(ACTION_TYPE.VERT_DRAGGING_ACTION, this.vertexDragHandler, [this]);        
 
         this.vertices.append(vertex);
     }

@@ -5,8 +5,11 @@
 export { Vertex } from "./vertices/vertex";
 export { Graph } from "./graphs/graph";
 export { MouseCoordinate, ShapeSize } from "./misc/pojo";
-export { InputVertexConnector} from "./vertices/input-connector";
-export { OutputVertexConnector } from "./vertices/ouput-connector";
+export {
+    InputVertexConnector,
+    CustomInputVertexConnector, 
+    OutputVertexConnector
+} from "./vertices/connector";
 
 /* import/export */
 export {

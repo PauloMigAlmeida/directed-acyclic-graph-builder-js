@@ -4,10 +4,13 @@
 import { TextOverflow } from "../misc/text-overflow";
 import { UniqueComponent } from "./unique-component";
 import { VertexConnectorSerializable } from "../serialization/serialize";
+import { ACTION_TYPE } from "../events/event";
+import * as d3 from "d3";
 
 export const ConnectorType = {
     INPUT: 1,
-    OUTPUT: 2,
+    CUSTOM_INPUT: 2,
+    OUTPUT: 3,
 }
 
 export class EdgeConnector extends UniqueComponent {
@@ -104,6 +107,8 @@ export class EdgeConnector extends UniqueComponent {
 
         this.animateEdgeConnector();
         this.markNode(this.edgeConnectorEl); 
+
+        return this.drawingContext;
     }
 
     animateEdgeConnector() {
@@ -148,5 +153,107 @@ export class EdgeConnector extends UniqueComponent {
             this.name,
             this.type,
         );
+    }
+}
+
+export class InputVertexConnector extends EdgeConnector {
+
+    constructor(order, name, type) {
+        super(ConnectorType.INPUT, order, name, type);
+    }    
+
+    getEdgeConnectorConfig(x, y, _maxWidth) {
+        return {
+            x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
+            y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
+            class: 'input',
+            width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
+            height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
+        };
+    }
+
+}
+
+/**
+ * Custom Input Vertex Connector fills the void for edge connections in which
+ * a custom value can be entered instead of linking 2 vertices. 
+ * 
+ * This is meant for a very specific case and I assume that 99% of users should
+ * be happy enoughwith the regular InputVertexConnector implementation
+ */
+ export class CustomInputVertexConnector extends InputVertexConnector {
+
+    constructor(order, name, type, clickCallback) {
+        super(order, name, type);
+        this.connectorType = ConnectorType.CUSTOM_INPUT; 
+
+        // container that holds a possible value entered manually
+        this.customValue = null;
+        this.clickCallback = clickCallback;
+    }
+
+    draw(drawingContext, x, y, maxWidth) {
+        super.draw(drawingContext, x, y, maxWidth);        
+        this.setupEvents();
+        return this.drawingContext;
+    }
+
+    setupEvents() {                
+        this.edgeConnectorEl.on('click', (event) => {
+            event.stopPropagation();
+            this.clickCallback(this, event);
+        });
+    }
+
+    getEdgeConnectorConfig(x, y, _maxWidth) {
+        //TODO change css so that users know straight away that this is a custom input
+        return {
+            x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
+            y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
+            class: 'input',
+            width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
+            height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
+        };
+    }
+
+    serialize() {
+        return new VertexConnectorSerializable(
+            this._uuid,
+            this.connectorType,
+            this.order,
+            this.name,
+            this.type,
+            this.customValue,
+        );
+    }
+} 
+
+export class OutputVertexConnector extends EdgeConnector {
+
+    constructor(order, name, type) {
+        super(ConnectorType.OUTPUT, order, name, type);
+    }
+
+    draw(drawingContext, x, y, maxWidth) {
+        super.draw(drawingContext, x, y, maxWidth);        
+        this.setupEvents();
+        return this.drawingContext;
+    }
+
+    setupEvents() {
+        this.edgeConnectorEl.call(d3.drag()
+            .on('start', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, [event]))
+            .on('drag', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, [event]))
+            .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));        
+    }
+
+    getEdgeConnectorConfig(x, y, maxWidth) {
+        return {
+            x: x + maxWidth - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
+            y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
+            class: 'output',
+            width: EdgeConnector.EDGE_CONNECTOR_SIZE.width,
+            height: EdgeConnector.EDGE_CONNECTOR_SIZE.height,
+        };
     }
 }

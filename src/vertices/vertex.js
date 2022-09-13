@@ -151,19 +151,18 @@ export class Vertex extends UniqueComponent {
     drawConnector(connector, next_y) {
         const eventsOfInterest = [];
         if (connector.connectorType === ConnectorType.OUTPUT) {
-            // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input    
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION);
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION);
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION);
-        } else {
-            // only input connectors can deal with click events so custom values can be entered
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_CLICK_ACTION);
-        }
+            // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input   
+            const eventsOfInterest = [
+                ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION,
+                ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION,
+                ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION,
+            ];             
 
-        // pass down events of interest that might be relevant for this component
-        this.listeners
-            .filter((e) => eventsOfInterest.includes(e.type))
-            .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
+            // pass down events of interest that might be relevant for this component
+            this.listeners
+                .filter((e) => eventsOfInterest.includes(e.type))
+                .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
+        } 
 
         // draw
         const wrapper = connector.draw(this.drawingContext, 0, next_y, this.size.width);

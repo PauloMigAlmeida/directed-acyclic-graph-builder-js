@@ -24,12 +24,11 @@ export class EdgeContainer extends BaseActionListener {
         let exists = this.edges.some((i) =>
             i.vertexHolderA.connector._uuid == uuia_a &&
             i.vertexHolderB.connector._uuid == uuia_b);
-        
-        if (!exists){
+
+        if (!exists) {
             this.edges.push(edge);
             this.triggerEvent(ACTION_TYPE.EDGE_ADDED_ACTION, [edge]);
         }
-            
 
         return !exists;
     }
@@ -40,7 +39,7 @@ export class EdgeContainer extends BaseActionListener {
      * @returns true if connector is being used, false otherwise
      */
     isInputConnectorUsed(connector) {
-        if (connector.connectorType !== ConnectorType.INPUT)
+        if (![ConnectorType.INPUT, ConnectorType.CUSTOM_INPUT].includes(connector.connectorType))
             throw `connector provided isn't of type Input`;
 
         // input connectors always the only ones to receive edge connection, 
