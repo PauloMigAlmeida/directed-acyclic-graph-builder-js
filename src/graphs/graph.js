@@ -14,29 +14,16 @@ import * as d3 from "d3";
 export class Graph {
     static MAIN_G_CLASS = 'graph';
 
-    constructor(containerSelector, vertexAddedCallback, vertexRemovedCallback, edgeAddedCallback, edgeRemovedCallback, edgeConnectorClickedCallback) {
+    constructor(containerSelector) {
         this.containerSelector = containerSelector;
         this.svg = null
         this.svgMainG = null
-        
+
         this.vertices = new VertexContainer();
         this.edges = new EdgeContainer();
 
         /* internal-only listeners */
         this.edgeDrawListener = null;
-
-        /* public-facing listeners */
-        if(vertexAddedCallback)
-            this.vertices.addActionListener(ACTION_TYPE.VERT_ADDED_ACTION, vertexAddedCallback, [this]);
-        
-        if(vertexRemovedCallback)
-            this.vertices.addActionListener(ACTION_TYPE.VERT_REMOVED_ACTION, vertexRemovedCallback, [this]);
-        
-        if(edgeAddedCallback)
-            this.edges.addActionListener(ACTION_TYPE.EDGE_ADDED_ACTION, edgeAddedCallback, [this]);
-        
-        if(edgeRemovedCallback)
-            this.edges.addActionListener(ACTION_TYPE.EDGE_REMOVED_ACTION, edgeRemovedCallback, [this]);
 
         this.init();
     }
@@ -51,7 +38,28 @@ export class Graph {
         this.edgeDrawListener = new EdgeDrawEvent(this);
         this.resize();
         this.addSymbolicDefs();
-        this.addListenerDefaults();        
+        this.addListenerDefaults();
+    }
+
+    /* public-facing listeners */
+    addVertexAddedListener(vertexAddedCallback) {
+        this.vertices.addActionListener(ACTION_TYPE.VERT_ADDED_ACTION, vertexAddedCallback, [this]);
+    }
+
+    addVertexRemovedListener(vertexRemovedCallback) {
+        this.vertices.addActionListener(ACTION_TYPE.VERT_REMOVED_ACTION, vertexRemovedCallback, [this]);
+    }
+
+    addEdgeAddedListener(edgeAddedCallback) {
+        this.edges.addActionListener(ACTION_TYPE.EDGE_ADDED_ACTION, edgeAddedCallback, [this]);
+    }
+
+    addEdgeRemovedListener(edgeRemovedCallback) {
+        this.edges.addActionListener(ACTION_TYPE.EDGE_REMOVED_ACTION, edgeRemovedCallback, [this]);
+    }
+
+    addCustomInputEdgeConnectorClickedListener(edgeConnectorClickedCallback) {
+        this.vertices.addActionListener(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION, edgeConnectorClickedCallback, [this]);
     }
 
     /**
@@ -139,14 +147,15 @@ export class Graph {
                 this.edges.removeSelected();
             }
         });
+
+        // internal vertex-related events that graph must handle for every vertex
+        this.vertices.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, this.edgeConnectorGenericDragHandler, [this]);
+        this.vertices.addActionListener(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, this.edgeConnectorGenericDragHandler, [this]);
+        this.vertices.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, this.edgeConnectorGenericDragHandler, [this]);
+        this.vertices.addActionListener(ACTION_TYPE.VERT_DRAGGING_ACTION, this.vertexDragHandler, [this]);
     }
 
     appendVertex(vertex) {
-        vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, this.edgeConnectorGenericDragHandler, [this]);
-        vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, this.edgeConnectorGenericDragHandler, [this]);
-        vertex.addActionListener(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, this.edgeConnectorGenericDragHandler, [this]);
-        vertex.addActionListener(ACTION_TYPE.VERT_DRAGGING_ACTION, this.vertexDragHandler, [this]);        
-
         this.vertices.append(vertex);
     }
 

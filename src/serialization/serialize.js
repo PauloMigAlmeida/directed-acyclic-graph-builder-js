@@ -77,11 +77,10 @@ export class VertexConnectorSerializable {
         if (this.connectorType === ConnectorType.INPUT) {
             connector = new InputVertexConnector(this.order, this.name, this.type);
         } else if (this.connectorType === ConnectorType.CUSTOM_INPUT) {
-            connector = new CustomInputVertexConnector(this.order, this.name, this.type);
-            connector.customValue = this.customValue;
+            connector = new CustomInputVertexConnector(this.order, this.name, this.type, this.customValue);
         } else if (this.connectorType === ConnectorType.OUTPUT) {
             connector = new OutputVertexConnector(this.order, this.name, this.type);
-        } else { // ensuring exaustive selection            
+        } else { // ensuring exaustive search            
             throw 'Unknown connector type';
         }
         connector.uuid = this.uuid;

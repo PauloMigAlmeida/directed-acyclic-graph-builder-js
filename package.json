@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && npx webpack",
-    "watch": "npm run clean && npx webpack --watch"
+    "watch": "npm run clean && npx webpack --watch",
+    "lint": "npx eslint -c .eslintrc.json src/**/*.js"
   },
   "repository": {
     "type": "git",

@@ -17,6 +17,9 @@ export const ACTION_TYPE = {
     /* Public-facing edge events */ 
     EDGE_ADDED_ACTION: 7,
     EDGE_REMOVED_ACTION: 8,
+
+    /* Public-facing edge connector events */
+    CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION: 9,
 };
 
 export function isFunction(value) {

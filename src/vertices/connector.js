@@ -48,9 +48,10 @@ export class EdgeConnector extends UniqueComponent {
         return Math.floor((maxWidth - minWidthReq) / 2) - 1;
     }
 
+    // eslint-disable-next-line no-unused-vars
     getEdgeConnectorConfig(_x, _y, _maxWidth) {
-        throw new Error('You have to implement the method getEdgeConnectorConfig!');
-     }
+        throw new Error('You have to implement the method getEdgeConnectorConfig(x, y, maxWidth) in your subclass!');
+    }
 
     draw(drawingContext, x, y, maxWidth) {
         this.drawingContext = drawingContext.append('g');
@@ -92,7 +93,7 @@ export class EdgeConnector extends UniqueComponent {
         this.typeEl.call(TextOverflow.calculateCharsOverflow, labelWidth);
 
         // edge connector
-        const edgeConnector = this.getEdgeConnectorConfig(x, y, maxWidth);        
+        const edgeConnector = this.getEdgeConnectorConfig(x, y, maxWidth);
 
         this.edgeConnectorEl = this.drawingContext
             .append('rect')
@@ -106,7 +107,7 @@ export class EdgeConnector extends UniqueComponent {
             .attr('height', edgeConnector.height);
 
         this.animateEdgeConnector();
-        this.markNode(this.edgeConnectorEl); 
+        this.markNode(this.edgeConnectorEl);
 
         return this.drawingContext;
     }
@@ -130,14 +131,14 @@ export class EdgeConnector extends UniqueComponent {
 
         const shrinkStrokeWidth = () => {
             this.edgeConnectorEl
-                    .transition()
-                    .duration(intervalInMs)
-                    .attr("stroke-width", minWidth)
-                    .on('end', expandStrokeWidth);
+                .transition()
+                .duration(intervalInMs)
+                .attr("stroke-width", minWidth)
+                .on('end', expandStrokeWidth);
         };
 
         expandStrokeWidth();
-    }    
+    }
 
     selectEdgeConnector(select) {
         this.drawingContext
@@ -160,8 +161,9 @@ export class InputVertexConnector extends EdgeConnector {
 
     constructor(order, name, type) {
         super(ConnectorType.INPUT, order, name, type);
-    }    
+    }
 
+    // eslint-disable-next-line no-unused-vars
     getEdgeConnectorConfig(x, y, _maxWidth) {
         return {
             x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
@@ -181,30 +183,30 @@ export class InputVertexConnector extends EdgeConnector {
  * This is meant for a very specific case and I assume that 99% of users should
  * be happy enoughwith the regular InputVertexConnector implementation
  */
- export class CustomInputVertexConnector extends InputVertexConnector {
+export class CustomInputVertexConnector extends InputVertexConnector {
 
-    constructor(order, name, type, clickCallback) {
+    constructor(order, name, type, customValue) {
         super(order, name, type);
-        this.connectorType = ConnectorType.CUSTOM_INPUT; 
+        this.connectorType = ConnectorType.CUSTOM_INPUT;
 
         // container that holds a possible value entered manually
-        this.customValue = null;
-        this.clickCallback = clickCallback;
+        this.customValue = customValue | null;
     }
 
     draw(drawingContext, x, y, maxWidth) {
-        super.draw(drawingContext, x, y, maxWidth);        
+        super.draw(drawingContext, x, y, maxWidth);
         this.setupEvents();
         return this.drawingContext;
     }
 
-    setupEvents() {                
+    setupEvents() {
         this.edgeConnectorEl.on('click', (event) => {
             event.stopPropagation();
-            this.clickCallback(this, event);
+            this.triggerEvent(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION, [this, event])
         });
     }
 
+    // eslint-disable-next-line no-unused-vars
     getEdgeConnectorConfig(x, y, _maxWidth) {
         //TODO change css so that users know straight away that this is a custom input
         return {
@@ -226,7 +228,7 @@ export class InputVertexConnector extends EdgeConnector {
             this.customValue,
         );
     }
-} 
+}
 
 export class OutputVertexConnector extends EdgeConnector {
 
@@ -235,7 +237,7 @@ export class OutputVertexConnector extends EdgeConnector {
     }
 
     draw(drawingContext, x, y, maxWidth) {
-        super.draw(drawingContext, x, y, maxWidth);        
+        super.draw(drawingContext, x, y, maxWidth);
         this.setupEvents();
         return this.drawingContext;
     }
@@ -244,7 +246,7 @@ export class OutputVertexConnector extends EdgeConnector {
         this.edgeConnectorEl.call(d3.drag()
             .on('start', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION, [event]))
             .on('drag', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION, [event]))
-            .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));        
+            .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));
     }
 
     getEdgeConnectorConfig(x, y, maxWidth) {
