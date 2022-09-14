@@ -149,20 +149,24 @@ export class Vertex extends UniqueComponent {
     }
 
     drawConnector(connector, next_y) {
-        const eventsOfInterest = [];
         if (connector.connectorType === ConnectorType.OUTPUT) {
-            // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input   
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION);
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION);
-            eventsOfInterest.push(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION);
-        } else if (connector.connectorType === ConnectorType.CUSTOM_INPUT) {
-            eventsOfInterest.push(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION);
-        }
+            // only output connectors can initiate drag events. That ensures that the DAG flows from Output -> Input
+            const eventsOfInterest = [
+                ACTION_TYPE.EDGE_CONN_DRAG_START_ACTION,
+                ACTION_TYPE.EDGE_CONN_DRAGGING_ACTION,
+                ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION
+            ];
 
-        // pass down events of interest that might be relevant for this component
-        this.listeners
-            .filter((e) => eventsOfInterest.includes(e.type))
-            .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
+            // pass down events of interest that might be relevant for this component
+            this.listeners
+                .filter((e) => eventsOfInterest.includes(e.type))
+                .forEach((e) => connector.addActionListener(e.type, e.callback, e.params));
+
+        } else if (connector.connectorType === ConnectorType.CUSTOM_INPUT) {
+            this.listeners
+                .filter((e) => [ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION].includes(e.type))
+                .forEach((e) => connector.addActionListener(e.type, e.callback, [...e.params, this]));
+        }
 
         // draw
         const wrapper = connector.draw(this.drawingContext, 0, next_y, this.size.width);

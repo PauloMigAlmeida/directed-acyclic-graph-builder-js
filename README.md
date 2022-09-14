@@ -1,8 +1,8 @@
 Directed-Acyclic-Graph-Builder-js (dag-builder-js)
 ===
 
-![version](https://img.shields.io/npm/v/dag-builder-js?label=latest%20version)
-![downloads](https://img.shields.io/npm/dm/dag-builder-js.svg)
+![https://www.npmjs.com/package/dag-builder-js](https://img.shields.io/npm/v/dag-builder-js?label=latest%20version)
+![https://www.npmjs.com/package/dag-builder-js](https://img.shields.io/npm/dm/dag-builder-js.svg)
 
 
 ## What is this?
@@ -11,7 +11,7 @@ dag-builder-js is a simple-to-use Javascript DAG library with support to N:N ver
 ## Demo
 ![Demo](https://media.giphy.com/media/QNVOHs7kIbgLsMP7CN/giphy.gif)
 
-**Live demo**: [https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/static/index.html](https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/static/index.html)
+**Live demo**: [https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/public/index.html](https://paulomigalmeida.github.io/directed-acyclic-graph-builder-js/demo/public/index.html)
 
 Running the demo in your computer can be achieved by running:
 
@@ -46,8 +46,6 @@ Or
 
 ```bash
 npm i dag-builder-js --save
-# node -v -> v16.14.0
-# npm -v -> 8.3.1
 ```
 
 ## Usage
@@ -88,7 +86,7 @@ graph.addEdgeAddedListener(onEdgeAdded);
 const onEdgeRemoved = (type, graph, edge) => {};
 graph.addEdgeRemovedListener(onEdgeRemoved);
 
-const onCustomInputEdgeConnectorClicked = (type, graph, edge, event) => {};
+const onCustomInputEdgeConnectorClicked = (type, graph, vertex, edge, event) => {};
 graph.addCustomInputEdgeConnectorClickedListener(onCustomInputEdgeConnectorClicked);
 
 /* Common operations */
@@ -182,7 +180,7 @@ Parameter | Type | Description
 ### onCustomInputEdgeConnectorClicked
 ```javascript
 
-function onCustomInputEdgeConnectorClicked(type, graph, edge, event){
+function onCustomInputEdgeConnectorClicked(type, graph, vertex, edge, event){
 	// When CustomInputEdgeConnector is clicked
 }
 ```
@@ -192,6 +190,7 @@ Parameter | Type | Description
 --- | --- | ---
    `type` | number | event code (see more at: [ACTION_TYPE](src/events/event.js))
    `graph` | [Graph](src/graphs/graph.js) | Graph instance
+   `vertex` | [Vertex](src/vertices/vertex.js) | Vertex removed
    `edge` | [Edge](src/edges/edge.js) | Edge removed
    `event` | object | DOM event
 

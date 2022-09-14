@@ -17,7 +17,7 @@ module.exports = {
 
     output: {
         filename: 'demo.js',
-        path: path.resolve(__dirname, 'static'),
+        path: path.resolve(__dirname, 'public'),
         library: {
             type: 'module',
         },
@@ -47,7 +47,7 @@ module.exports = {
 
     devServer: {
         static: {
-            directory: path.join(__dirname, 'static'),
+            directory: path.join(__dirname, 'public'),
         },
         compress: true,
         port: 8080,
