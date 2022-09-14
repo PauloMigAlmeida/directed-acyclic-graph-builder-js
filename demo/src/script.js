@@ -6,6 +6,7 @@ import {
     MouseCoordinate,
     ShapeSize,
     InputVertexConnector,
+    CustomInputVertexConnector,
     OutputVertexConnector,
     GraphSerializable,
 } from 'dag-builder-js/dist/dag.debug';
@@ -74,12 +75,18 @@ const catalog = [
 ];
 
 /* Dag-build-js initialisation */
-const onVertexAdded = (_type, _graph, vertex) => { console.log('onVertexAdded', vertex); }; // optional
-const onVertexRemoved = (_type, _graph, vertex) => { console.log('onVertexRemoved', vertex); }; // optional
-const onEdgeAdded = (_type, _graph, edge) => { console.log('onEdgeAdded', edge); }; // optional
-const onEdgeRemoved = (_type, _graph, edge) => { console.log('onEdgeRemoved', edge); }; // optional
+const graph = new Graph('#graph');
 
-let graph = new Graph('#graph', onVertexAdded, onVertexRemoved, onEdgeAdded, onEdgeRemoved);
+graph.addVertexAddedListener((_type, _graph, vertex) => console.log('onVertexAdded', vertex)); // optional
+graph.addVertexRemovedListener((_type, _graph, vertex) => console.log('onVertexRemoved', vertex)); // optional
+graph.addEdgeAddedListener((_type, _graph, edge) => console.log('onEdgeAdded', edge)); // optional
+graph.addEdgeRemovedListener((_type, _graph, edge) => console.log('onEdgeRemoved', edge)); // optional
+
+/* Custom Input event */
+graph.addCustomInputEdgeConnectorClickedListener((_type, _graph, vertex, edge, event) => {
+    console.log('customInputClickHandler', vertex, edge, event);
+    edge.customValue = edge.customValue ? edge.customValue + 1 : 1;
+}); // optional
 
 /* Drag and Drop events */
 const graphEl = document.getElementById('graph');
@@ -107,7 +114,7 @@ graphEl.addEventListener('drop', (event) => {
         new MouseCoordinate(pointer[0] - shape.width / 2, pointer[1]),
         shape,
         item.title,
-        item.inputs.map((i) => new InputVertexConnector(i.order, i.name, i.type)),
+        item.inputs.map((i) => new CustomInputVertexConnector(i.order, i.name, i.type)),
         item.outputs.map((i) => new OutputVertexConnector(i.order, i.name, i.type)),
     ));
 
