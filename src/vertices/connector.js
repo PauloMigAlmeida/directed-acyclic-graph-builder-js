@@ -190,8 +190,8 @@ export class CustomInputVertexConnector extends InputVertexConnector {
         super(order, name, type);
         this.connectorType = ConnectorType.CUSTOM_INPUT;
 
-        // container that holds a possible value entered manually
-        this.customValue = customValue | null;
+        // container that holds a possible value entered manually        
+        this.customValue = customValue;
     }
 
     draw(drawingContext, x, y, maxWidth) {
