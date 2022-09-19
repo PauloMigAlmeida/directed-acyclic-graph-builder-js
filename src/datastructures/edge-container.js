@@ -109,16 +109,21 @@ export class EdgeContainer extends BaseActionListener {
     }
 
     remove(criteria) {
+        let holder = [];
+        
         // remove from svg
         this.edges
             .filter((i) => criteria(i))
             .forEach((i) => {
                 i.remove();
-                this.triggerEvent(ACTION_TYPE.EDGE_REMOVED_ACTION, [i]);
+                holder.push(i);                
             });
 
         // remove from list
         this.edges = this.edges.filter((i) => !criteria(i));
+
+        // bubble up events (this has to be the last step to avoid a variety of issues)
+        holder.forEach((i) => this.triggerEvent(ACTION_TYPE.EDGE_REMOVED_ACTION, [i]));
     }
 
     removeSelected() {

@@ -1,6 +1,6 @@
 {
   "name": "dag-builder-js",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "dag-builder-js is a simple-to-use Javascript DAG library with support to N:N vertices/edges. It supports validating that no cycle can be created in real-time, import/export states and it's built on SVG so you can render graphs pretty much anywhere.",
   "main": "dist/dag.js",
   "scripts": {
