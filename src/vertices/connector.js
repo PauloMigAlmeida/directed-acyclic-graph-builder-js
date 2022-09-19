@@ -20,6 +20,7 @@ export class EdgeConnector extends UniqueComponent {
     static SEPARATOR_WIDTH = 10;
     static EDGE_CONNECTOR_SIZE = { width: 14, height: 14 };
     static UUID_ATTR = 'connector-uuid';
+    static SELECTED_CLASS = 'selected';
 
     constructor(connectorType, order, name, type) {
         super(EdgeConnector.UUID_ATTR);
@@ -47,12 +48,12 @@ export class EdgeConnector extends UniqueComponent {
 
         return Math.floor((maxWidth - minWidthReq) / 2) - 1;
     }
-    
+
     /**
      * Abstract method to be implemented on each subclass of EdgeConnector
      */
-    getEdgeConnectorConfig() {
-        throw new Error('You have to implement the method getEdgeConnectorConfig(x, y, maxWidth) in your subclass!');
+    getConfig() {
+        throw new Error('You have to implement the method getConfig(x, y, maxWidth) in your subclass!');
     }
 
     draw(drawingContext, x, y, maxWidth) {
@@ -95,7 +96,7 @@ export class EdgeConnector extends UniqueComponent {
         this.typeEl.call(TextOverflow.calculateCharsOverflow, labelWidth);
 
         // edge connector
-        const edgeConnector = this.getEdgeConnectorConfig(x, y, maxWidth);
+        const edgeConnector = this.getConfig(x, y, maxWidth);
 
         this.edgeConnectorEl = this.drawingContext
             .append('rect')
@@ -142,10 +143,14 @@ export class EdgeConnector extends UniqueComponent {
         expandStrokeWidth();
     }
 
-    selectEdgeConnector(select) {
-        this.drawingContext
-            .select('.connector')
-            .classed('selected', select);
+    setSelected(value) {
+        this.edgeConnectorEl
+            .classed(EdgeConnector.SELECTED_CLASS, value);
+    }
+
+    isSelected() {
+        return this.edgeConnectorEl
+            .classed(EdgeConnector.SELECTED_CLASS);
     }
 
     serialize() {
@@ -165,7 +170,7 @@ export class InputVertexConnector extends EdgeConnector {
         super(ConnectorType.INPUT, order, name, type);
     }
 
-    getEdgeConnectorConfig(x, y) {
+    getConfig(x, y) {
         return {
             x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
             y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
@@ -190,8 +195,8 @@ export class CustomInputVertexConnector extends InputVertexConnector {
         super(order, name, type);
         this.connectorType = ConnectorType.CUSTOM_INPUT;
 
-        // container that holds a possible value entered manually
-        this.customValue = customValue | null;
+        // container that holds a possible value entered manually        
+        this.customValue = customValue;
     }
 
     draw(drawingContext, x, y, maxWidth) {
@@ -206,8 +211,8 @@ export class CustomInputVertexConnector extends InputVertexConnector {
             this.triggerEvent(ACTION_TYPE.CUSTOM_INPUT_EDGE_CONN_CLICK_ACTION, [this, event])
         });
     }
-    
-    getEdgeConnectorConfig(x, y) {
+
+    getConfig(x, y) {
         //TODO change css so that users know straight away that this is a custom input
         return {
             x: x - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
@@ -249,7 +254,7 @@ export class OutputVertexConnector extends EdgeConnector {
             .on('end', (event) => this.triggerEvent(ACTION_TYPE.EDGE_CONN_DRAG_END_ACTION, [event])));
     }
 
-    getEdgeConnectorConfig(x, y, maxWidth) {
+    getConfig(x, y, maxWidth) {
         return {
             x: x + maxWidth - (EdgeConnector.EDGE_CONNECTOR_SIZE.width / 2),
             y: y - (EdgeConnector.EDGE_CONNECTOR_SIZE.height / 1.5),
