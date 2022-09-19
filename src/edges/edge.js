@@ -29,8 +29,8 @@ export class Edge {
         const translateA = translationMat(vertexA.drawingContext.node());
         const translateB = translationMat(vertexB.drawingContext.node());
 
-        connectorA.selectEdgeConnector(true);
-        connectorB.selectEdgeConnector(true);
+        connectorA.setSelected(true);
+        connectorB.setSelected(true);
 
         let bboxVertA = connectorA.edgeConnectorEl.node().getBBox();
         let bboxVertB = connectorB.edgeConnectorEl.node().getBBox();
@@ -75,8 +75,8 @@ export class Edge {
             const connectorA = this.vertexHolderA.connector;
             const connectorB = this.vertexHolderB.connector;
 
-            connectorA.selectEdgeConnector(false);
-            connectorB.selectEdgeConnector(false);
+            connectorA.setSelected(false);
+            connectorB.setSelected(false);
             
             this.drawingContext.remove();
         }

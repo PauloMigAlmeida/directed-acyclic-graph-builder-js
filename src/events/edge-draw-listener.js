@@ -21,7 +21,7 @@ export class EdgeDrawEvent {
 
     dragStartEventHandler(pointer, vertex, edgeConnector) {
         this.vertexHolderA = new VertexConnectorHolder(vertex, edgeConnector);
-        edgeConnector.selectEdgeConnector(true);
+        edgeConnector.setSelected(true);
 
         this.line = new EdgeLine(this.drawingContext, translationMat(vertex.drawingContext.node()));                        
         this.dragStart2DCoord = pointer;        
@@ -60,9 +60,9 @@ export class EdgeDrawEvent {
             console.debug("dragEndEventHandler: cancelling edge connection");
             
             if (this.vertexHolderA?.connector)
-                this.vertexHolderA.connector.selectEdgeConnector(false);
+                this.vertexHolderA.connector.setSelected(false);
             if (this.vertexHolderB?.connector)
-                this.vertexHolderB.connector.selectEdgeConnector(false);
+                this.vertexHolderB.connector.setSelected(false);
             
             this.cleanUp();
             return;
