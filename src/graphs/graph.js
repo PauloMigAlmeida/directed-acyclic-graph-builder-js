@@ -21,6 +21,7 @@ export class Graph {
 
         this.vertices = new VertexContainer();
         this.edges = new EdgeContainer();
+        this.readOnly = false;
 
         /* internal-only listeners */
         this.edgeDrawListener = null;
@@ -136,6 +137,9 @@ export class Graph {
 
         // delete vertices/edges components
         d3.select(window).on("keydown", (event) => {
+            /* ignore event if graph is in readOnly mode */
+            if(this.readOnly) return;
+
             if ([46 /* delete */, 8 /* backspace */].includes(event.keyCode)) {
                 // delete dependent edges on doomed vertices
                 this.vertices
@@ -226,6 +230,9 @@ export class Graph {
     /* callbacks for events */
 
     edgeConnectorGenericDragHandler(type, that, event) {
+        /* ignore event if graph is in readOnly mode */
+        if(that.readOnly) return;
+
         let vertex = null;
         let connector = null;
         let uuid = null;
@@ -261,5 +268,5 @@ export class Graph {
     vertexDragHandler(type, that) {
         if (type === ACTION_TYPE.VERT_DRAGGING_ACTION)
             that.update();
-    }
+    }    
 }

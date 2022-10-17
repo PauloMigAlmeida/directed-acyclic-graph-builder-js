@@ -150,7 +150,7 @@ Parameter | Type | Description
 ### onEdgeAdded
 ```javascript
 
-function onEdgeAdded(type, graph, vertex){
+function onEdgeAdded(type, graph, edge){
 	// When edge is added to graph
 }
 ```
@@ -165,7 +165,7 @@ Parameter | Type | Description
 ### onEdgeRemoved
 ```javascript
 
-function onEdgeRemoved(type, graph, vertex){
+function onEdgeRemoved(type, graph, edge){
 	// When edge is removed from graph
 }
 ```

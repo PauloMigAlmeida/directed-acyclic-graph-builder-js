@@ -76,6 +76,7 @@ const catalog = [
 
 /* Dag-build-js initialisation */
 const graph = new Graph('#graph');
+graph.readOnly = true;
 
 graph.addVertexAddedListener((_type, _graph, vertex) => console.log('onVertexAdded', vertex)); // optional
 graph.addVertexRemovedListener((_type, _graph, vertex) => console.log('onVertexRemoved', vertex)); // optional

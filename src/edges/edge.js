@@ -51,12 +51,16 @@ export class Edge {
         );
 
         // add support for selecting invididual edges
-        this.setupClickEvents();
+        this.setupClickEvents(graph);
     }
 
-    setupClickEvents() {
-        this.drawingContext.on('click', (event) => {
+    setupClickEvents(graph) {
+        this.drawingContext.on('click', (event) => {            
             event.stopPropagation();            
+            
+            /* ignore event if graph is in readOnly mode */
+            if(graph.readOnly) return;
+            
             this.setSelected(!this.isSelected());
         });
     }

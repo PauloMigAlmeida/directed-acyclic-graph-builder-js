@@ -145,7 +145,7 @@ export class Vertex extends UniqueComponent {
         this.setupDragEvents();
 
         // add support for selecting invididual vertices
-        this.setupClickEvents();
+        this.setupClickEvents(graph);
     }
 
     drawConnector(connector, next_y) {
@@ -197,9 +197,13 @@ export class Vertex extends UniqueComponent {
             }));
     }
 
-    setupClickEvents() {
+    setupClickEvents(graph) {
         this.drawingContext.on('click', (event) => {
             event.stopPropagation();
+
+            /* ignore event if graph is in readOnly mode */
+            if(graph.readOnly) return;
+            
             this.setSelected(!this.isSelected());
         });
     }
