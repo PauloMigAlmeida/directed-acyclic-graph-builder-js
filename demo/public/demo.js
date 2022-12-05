@@ -9606,6 +9606,14 @@ document.getElementById('download-input').addEventListener('click', () => {
 document.getElementById('delete-graph').addEventListener('click', () => {
     graph.clear();
 });
+
+document.addEventListener('keydown', (event) => {
+    const keyName = event.key;
+    if (keyName === 'r'){
+        graph.readOnly = !graph.readOnly;
+        console.log(`ReadOnly state set to ${graph.readOnly}`);
+    }
+}, false);
 })();
 
 
