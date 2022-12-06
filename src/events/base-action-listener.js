@@ -62,3 +62,31 @@ export class BaseActionListener {
             .forEach((value) => value.invoke(additionalParams));
     }
 }
+
+
+export class ScheduledActionHolder {
+
+    constructor(actionHolder, additionalParams) {
+        this.actionHolder = actionHolder;
+        this.additionalParams = additionalParams;
+    }
+}
+
+export class ScheduledActionListener extends BaseActionListener {
+
+    constructor() {
+        super();
+        this.queue = [];
+    }
+
+    scheduleEvent(type, additionalParams) {
+        this.listeners
+            .filter((i) => i.type === type)
+            .forEach((value) => this.queue.push(new ScheduledActionHolder(value, additionalParams)));
+    }
+
+    fireScheduledEvents() {
+        this.queue.forEach((value) => value.actionHolder.invoke(value.additionalParams));
+        this.queue = [];
+    }
+}

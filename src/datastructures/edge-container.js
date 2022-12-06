@@ -1,12 +1,12 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 'use strict';
 
-import { BaseActionListener } from "../events/base-action-listener";
+import { ScheduledActionListener } from "../events/base-action-listener";
 import { ACTION_TYPE } from "../events/event";
 import { ConnectorType } from "../vertices/connector";
 import { ConnectionDegree, KahnTopologicalSort } from "./kahn-topological-sort";
 
-export class EdgeContainer extends BaseActionListener {
+export class EdgeContainer extends ScheduledActionListener {
     constructor() {
         super();
         this.edges = [];
@@ -27,7 +27,7 @@ export class EdgeContainer extends BaseActionListener {
 
         if (!exists) {
             this.edges.push(edge);
-            this.triggerEvent(ACTION_TYPE.EDGE_ADDED_ACTION, [edge]);
+            this.scheduleEvent(ACTION_TYPE.EDGE_ADDED_ACTION, [edge]);
         }
 
         return !exists;

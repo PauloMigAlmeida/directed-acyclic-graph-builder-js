@@ -179,6 +179,10 @@ export class Graph {
             value.remove();
             value.draw(that);
         });
+
+        // trigger all events that happened since the graph was last rendered
+        this.vertices.fireScheduledEvents();
+        this.edges.fireScheduledEvents();
     }
 
     translateCoordinates(event) {

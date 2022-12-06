@@ -1,10 +1,10 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 'use strict';
 
-import { BaseActionListener } from "../events/base-action-listener";
+import { ScheduledActionListener } from "../events/base-action-listener";
 import { ACTION_TYPE } from "../events/event";
 
-export class VertexContainer extends BaseActionListener {
+export class VertexContainer extends ScheduledActionListener {
 
     constructor() {
         super();
@@ -25,7 +25,7 @@ export class VertexContainer extends BaseActionListener {
             .forEach((e) => vertex.addActionListener(e.type, e.callback, e.params));
 
         this.vertices.push(vertex);        
-        this.triggerEvent(ACTION_TYPE.VERT_ADDED_ACTION, [vertex]);
+        this.scheduleEvent(ACTION_TYPE.VERT_ADDED_ACTION, [vertex]);
     }
 
     findVertexConnectorByUUID(uuid) {

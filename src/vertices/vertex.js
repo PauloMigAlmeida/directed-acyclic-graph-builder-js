@@ -117,22 +117,25 @@ export class Vertex extends UniqueComponent {
 
         this.inputs.forEach((value) => next_y += this.drawConnector(value, next_y));
 
-        // outputs
-        let outputLabel = this.drawingContext
-            .append('text')
-            .classed('label', true)
-            .attr('font-size', Vertex.FONT_SIZE.section)
-            .attr('x', 0)
-            .attr('y', next_y)
-            .attr("dy", +Vertex.MARGIN.top)
-            .attr("dx", Vertex.MARGIN.left)
-            .text("Output:")
+        // Output edge connectors are optional
+        if (this.outputs.length > 0) {
+            // outputs
+            let outputLabel = this.drawingContext
+                .append('text')
+                .classed('label', true)
+                .attr('font-size', Vertex.FONT_SIZE.section)
+                .attr('x', 0)
+                .attr('y', next_y)
+                .attr("dy", +Vertex.MARGIN.top)
+                .attr("dx", Vertex.MARGIN.left)
+                .text("Output:")
 
-        next_y = outputLabel.node().getBBox().y +
-            outputLabel.node().getBBox().height +
-            Vertex.FONT_SIZE.section;
+            next_y = outputLabel.node().getBBox().y +
+                outputLabel.node().getBBox().height +
+                Vertex.FONT_SIZE.section;
 
-        this.outputs.forEach((value) => next_y += this.drawConnector(value, next_y));
+            this.outputs.forEach((value) => next_y += this.drawConnector(value, next_y));            
+        }        
 
         // adjust outer box if needed
         const requiredHeight = next_y;
