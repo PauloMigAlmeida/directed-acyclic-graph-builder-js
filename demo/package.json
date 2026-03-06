@@ -10,7 +10,7 @@
   "author": "Paulo Miguel Almeida",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
